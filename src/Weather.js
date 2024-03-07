@@ -49,6 +49,13 @@ const Weather = () => {
                     <p> Description: {weatherData.weather[0].description}</p>
                     <p> Hi: {weatherData.main.temp_max} °C</p>
                     <p> Lo: {weatherData.main.temp_min} °C</p>
+                    <p> Humidity: {weatherData.main.humidity} %</p>
+                    <p> Wind Speed: {weatherData.wind.speed} m/s</p>
+                    <p> Wind Direction: {weatherData.wind.deg} °</p>
+                    <p> Pressure: {weatherData.main.pressure} hPa</p>
+                    <p> Feels Like: {weatherData.main.feels_like} °C</p>
+                    <p> Visibility: {weatherData.visibility} m</p>
+                    <p> Cloudiness: {weatherData.clouds.all} %</p>                    
                     
                     {weatherData.sys.sunrise &&(
                         <p> Sunrise: 
