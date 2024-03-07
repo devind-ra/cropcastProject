@@ -1,28 +1,101 @@
-import React from 'react';
 import './index.css';
+import React, {useEffect, useState} from "react";
+import axios from 'axios'; 
 
-export default function App() {
+
+const Weather = () => {
+  const[city, setCity] = useState("");
+  const[weatherData, setWeatherData] = useState(null);
+  const fetchData = async () =>{
+      try{
+          const response = await axios.get(
+              `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
+          );
+          setWeatherData(response.data)
+          console.log(response.data);
+      }catch(error){
+          console.error(error)
+      }
+  };
+  useEffect(()=>{
+      fetchData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  const handleInputChange = (e) =>{
+      setCity(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      fetchData(); 
+  };  
   return (
+     
     <div className='main-container'>
+      <form onSubmit={handleSubmit}>
+          <input
+          type="text"
+          placeholder="Enter city name"
+          value={city}
+          onChange={handleInputChange}
+      />
+      <button type="submit">Get Weather</button>
+      </form>
+      {weatherData ? (
+          <>
+
+          
+              
+
+
+      
       {/* First page */}
       <div className='search' />
       <div className='flex-row-ae'>
         <div className='leaf' />
-        <span className='london'>London</span>
+        <span className='london'>{weatherData.name}</span>
       </div>
       <div className='flex-row-f'>
-        <span className='mostly-clear'>Mostly Clear</span>
+        <span className='mostly-clear'>{weatherData.weather[0].description}</span>
         <div className='group' />
-        <span className='degree'>23°</span>
+        <span className='degree'>{weatherData.main.temp} °C</span>
       </div>
       <div className='sunset' />
       <div className='flex-row-f-1'>
         <div className='regroup'>
-          <span className='temperature-high'>H:23°</span>
-          <span className='temperature-low'>L:15°</span>
+          <span className='temperature-high'>H: {weatherData.main.temp_max} °C</span>
+          <span className='temperature-low'>L: {weatherData.main.temp_min} °C</span>
         </div>
-        <span className='time-span'>06:28</span>
-        <span className='time-span-2'>17:58</span>
+        <span className='time-span'>{weatherData.sys.sunrise &&(
+                        <p> 
+                            {(() => {
+                                let sunriseTimeStamp = weatherData.sys.sunrise;
+                                let milliseconds = sunriseTimeStamp * 1000;
+                                let dateObject = new Date(milliseconds);
+                                let hours =  dateObject.getHours();
+                                let minutes = dateObject.getMinutes(); 
+                                let check = hours < 12 ? 'AM' : 'PM';
+                                hours = hours % 12 || 12;
+                                return ` ${hours}:${minutes} ${check}`;
+                            })()}
+                        </p>
+                    )}</span>
+        <span className='time-span-2'>{weatherData.sys.sunset &&(
+                        <p>
+                            {(() => {
+                                let sunsetTimeStamp = weatherData.sys.sunset;
+                                let milliseconds = sunsetTimeStamp * 1000;
+                                let dateObject = new Date(milliseconds);
+                                let hours =  dateObject.getHours();
+                                let minutes = dateObject.getMinutes(); 
+                                hours = String(hours).padStart(2, '0');
+                                minutes = String(minutes).padStart(2, '0');
+                                let check = hours < 12 ? 'AM' : 'PM';
+                                return ` ${hours}:${minutes} ${check}`;
+                            })()}
+                        </p>
+                    )}</span>
       </div>
       <div className='flex-row-ca'>
         <div className='rectangle' />
@@ -32,7 +105,7 @@ export default function App() {
         </div>
         <div className='rain-advice'>
           <span className='rain-advice-5'>
-            80% chance of rain with 20mm expected in the next 24 hours.
+            Feels Like: {weatherData.main.feels_like} °C. 80% chance of rain with 20mm expected in the next 24 hours.
             <br />
           </span>
           <span className='mulch-advice'>
@@ -85,7 +158,7 @@ export default function App() {
         </div>
         <span className='empty-16'>13</span>
         <span className='mm'>mm</span>
-        <span className='percentage'>78%</span>
+        <span className='percentage'>{weatherData.main.humidity} %</span>
         <span className='in-last-h'>in last 24h</span>
         <span className='mm-expected-in-next-h'>
           4 mm expected
@@ -115,16 +188,18 @@ export default function App() {
             <span className='air-quality'>Air quality</span>
           </div>
         </div>
-        <span className='number-12'>12</span>
-        <span className='number-24'>24</span>
+
         <div className='line' />
-        <span className='percentage'>54</span>
+        <span className='percentage'>{weatherData.visibility} m </span>
+        <span className='dew-point'>pressure: {weatherData.main.pressure} hPa </span>
+
+        <span className='number-12'>{weatherData.wind.speed}</span>
+        <span className='number-24'>24</span>
         <span className='mph'>mph</span>
         <span className='mph-5'>mph</span>
         <span className='wind-6'>Wind</span>
         <span className='gusts'>Gusts</span>
-        <span className='dew-point'>Moderate</span>
-        <span className='nw'>NW</span>
+        <span className='nw'>{weatherData.wind.deg} °</span>
       </div>
       <div className='flex-row-bec'>
         <div className='list' />
@@ -232,8 +307,15 @@ export default function App() {
         <div className='rectangle-35' />
       </div>
       {/* End of second page */}
+      </>
+        ):(
+          <p>Loading Weather data...</p>
+      )}
 
     </div>
+    
   );
   
+  
 }
+export default Weather; 
