@@ -78,43 +78,36 @@ const Weather = () => {
       fetchData(); 
   };  
   return (
-     
     <div className='main-container'>
-      <form onSubmit={handleSubmit}>
-          <input
-          type="text"
-          placeholder="Enter city name"
-          value={city}
-          onChange={handleInputChange}
-      />
-      <button type="submit">Get Weather</button>
+      <form onSubmit={handleSubmit} className='searchbar'>
+        <input
+        type="text"
+        placeholder="Enter city name"
+        value={city}
+        onChange={handleInputChange}
+        />
+        <button type="submit">Get Weather</button>
       </form>
       {weatherData ? (
           <>
-
-          
-              
-
-
-      
-      {/* First page */}
-      <div className='search' />
-      <div className='flex-row-ae'>
-        <div className='leaf' />
-        <span className='london'>{weatherData.name}</span>
-      </div>
-      <div className='flex-row-f'>
-        <span className='mostly-clear'>{weatherData.weather[0].description}</span>
-        <div className='group' />
-        <span className='degree'>{weatherData.main.temp} °C</span>
-      </div>
-      <div className='sunset' />
-      <div className='flex-row-f-1'>
-        <div className='regroup'>
-          <span className='temperature-high'>H: {weatherData.main.temp_max} °C</span>
-          <span className='temperature-low'>L: {weatherData.main.temp_min} °C</span>
-        </div>
-        <span className='time-span'>{weatherData.sys.sunrise &&(
+          {/* First page */}
+          {/* <div className='search' /> */}
+          <div className='flex-row-city'>
+            <div className='leaf' />
+            <span className='city'>{weatherData.name}</span>
+          </div>
+          <div className='flex-row-maindescription'>
+            <span className='mainweather-description'>{weatherData.weather[0].description}</span>
+            <div className='mainweather-icon' />
+            <span className='mainweather-temp'>{Math.round(weatherData.main.temp)}°</span>
+          </div>
+          <div className='sunset' />
+          <div className='flex-row-mainweatherextra'>
+            <div className='minmaxTemp'>
+              <span className='temperature-high'>H: {Math.round(weatherData.main.temp_max)}°</span>
+              <span className='temperature-low'>L: {Math.round(weatherData.main.temp_min)}°</span>
+            </div>
+            <span className='time-span'>{weatherData.sys.sunrise &&(
                         <p> 
                             {(() => {
                                 let sunriseTimeStamp = weatherData.sys.sunrise;
@@ -124,11 +117,13 @@ const Weather = () => {
                                 let minutes = dateObject.getMinutes(); 
                                 let check = hours < 12 ? 'AM' : 'PM';
                                 hours = hours % 12 || 12;
+                                hours = String(hours).padStart(2, '0');
+                                minutes = String(minutes).padStart(2, '0');
                                 return ` ${hours}:${minutes} ${check}`;
                             })()}
                         </p>
                     )}</span>
-        <span className='time-span-2'>{weatherData.sys.sunset &&(
+              <span className='time-span-2'>{weatherData.sys.sunset &&(
                         <p>
                             {(() => {
                                 let sunsetTimeStamp = weatherData.sys.sunset;
@@ -143,29 +138,29 @@ const Weather = () => {
                             })()}
                         </p>
                     )}</span>
-      </div>
-      <div className='flex-row-ca'>
-        <div className='rectangle' />
-        <div className='farm-advice'>
-          <span className='farm-advice-3'>! </span>
-          <span className='farm-advice-4'> FARM ADVICE</span>
-        </div>
-        <div className='rain-advice'>
-          <span className='rain-advice-5'>
-            Feels Like: {weatherData.main.feels_like} °C. 80% chance of rain with 20mm expected in the next 24 hours.
-            <br />
-          </span>
-          <span className='mulch-advice'>
-            Consider laying mulch around your crops as a protective measure. 🌱
-          </span>
-        </div>
-      </div>
-      <div className='flex-row-fa'>
-        <div className='hourly-forecast'>Hourly forecast</div>
-        <div className='line' />
-        <div className='rectangle-6' />
+            </div>
+            <div className='flex-row-farmadvice'>
+              <div className='rectangle' />
+              <div className='farm-advice'>
+                <span className='farm-advice-3'>!</span>
+                <span className='farm-advice-4'> FARM ADVICE</span>
+              </div>
+              <div className='rain-advice'>
+                <span className='rain-advice-5'>
+                Feels Like: {weatherData.main.feels_like}°C. 80% chance of rain with 20mm expected in the next 24 hours.
+                <br />
+                </span>
+                <span className='mulch-advice'>
+                Consider laying mulch around your crops as a protective measure. 🌱
+                </span>
+              </div>
+            </div>
+            <div className='flex-row-hourly'>
+              <div className='hourly-forecast'>Hourly forecast</div>
+              {/* <div className='line' /> */}
+              <div className='rectangle-6' />
         <span className='now'>Now</span>
-        <div className='pm'>
+         <div className='pm'>
           <span className='time-10'>10</span>
           <span className='pm-7'>PM</span>
         </div>
@@ -191,80 +186,79 @@ const Weather = () => {
         <span className='temperature-19'>19°</span>
         <span className='temperature-19-11'>19°</span>
         <span className='temperature-19-12'>19°</span>
-      </div>
-      <div className='flex-row-c'>
-        <div className='rectangle-13' />
-        <div className='rectangle-14' />
-        <div className='auto-layout-horizontal'>
-          <div className='icon' />
-          <span className='rainfall'>Rainfall</span>
-        </div>
-        <div className='auto-layout-horizontal-15'>
-          <div className='empty' />
-          <span className='humidity'>humidity</span>
-        </div>
-        <span className='empty-16'>13</span>
-        <span className='mm'>mm</span>
-        <span className='percentage'>{weatherData.main.humidity} %</span>
-        <span className='in-last-h'>in last 24h</span>
+            </div>
+            <div className='flex-row-c'>
+              <div className='rectangle-13' />
+              <div className='rectangle-14' />
+              <div className='auto-layout-horizontal'>
+                <div className='icon' />
+                <span className='rainfall'>Rainfall</span>
+              </div>
+              <div className='auto-layout-horizontal-15'>
+                <div className='empty' />
+                <span className='humidity'>humidity</span>
+              </div>
+              <span className='empty-16'>13</span>
+              <span className='mm'>mm</span>
+              <span className='percentage'>{weatherData.main.humidity}%</span>
+              <span className='in-last-h'>in last 24h</span>
         <span className='mm-expected-in-next-h'>
           4 mm expected
           <br />
           in next 24h.
         </span>
-        <span className='dew-point'>
+         <span className='dew-point'>
           The dew point is
           <br />
           10° right now.
         </span>
-      </div>
+            </div>
       {/* End of First page */}
       
       {/* Start of Second page */}
       
-      <div className='flex-row-d'>
-        <div className='rectanglez' />
-        <div className='rectangle-1' />
-        <div className='auto-layout-horizontal'>
-          <div className='icon' />
-          <span className='wind'>Wind</span>
-        </div>
-        <div className='auto-layout-horizontal-15'>
-          <div className='auto-layout-horizontal-3'>
-            <div className='icon-4' />
-            <span className='air-quality'>Air quality</span>
-          </div>
-        </div>
+            <div className='flex-row-d'>
+              <div className='rectanglez' />
+              <div className='rectangle-1' />
+              <div className='auto-layout-horizontal'>
+                <div className='icon' />
+                <span className='wind'>Wind</span>
+              </div>
+              <div className='auto-layout-horizontal-15'>
+                <div className='auto-layout-horizontal-3'>
+                  <div className='icon-4' />
+                  <span className='air-quality'>Air quality</span>
+                </div>
+              </div>
 
-        <div className='line' />
-        <span className='percentage'>{weatherData.visibility} m </span>
-        <span className='dew-point'>pressure: {weatherData.main.pressure} hPa </span>
-
-        <span className='number-12'>{weatherData.wind.speed}</span>
-        <span className='number-24'>24</span>
-        <span className='mph'>mph</span>
-        <span className='mph-5'>mph</span>
-        <span className='wind-6'>Wind</span>
-        <span className='gusts'>Gusts</span>
-        <span className='nw'>{weatherData.wind.deg} °</span>
-      </div>
-      <div className='flex-row-bec'>
-        <div className='list' />
-        <div className='auto-layout-horizontal-7'>
-          <div className='pic-4' />
-          <span className='day-forecast'>7-DAY FORECAST</span>
-        </div>
-        <span className='low'>Low</span>
-        <span className='high'>High</span>
-        <div className='list-8'>
-          <div className='flex-row'>
-            <span className='today'>Today</span>
-            <span className='degreez'>23°</span>
-            <div className='imagee' />
-            <span className='degree-9'>15°</span>
-          </div>
-          <div className='line-a' />
-        </div>
+              <div className='line' />
+                <span className='percentage'>{weatherData.visibility} m </span>
+                <span className='dew-point'>pressure: {weatherData.main.pressure} hPa </span>
+                <span className='number-12'>{weatherData.wind.speed}</span>
+                <span className='number-24'>24</span>
+                <span className='mph'>mph</span>
+                <span className='mph-5'>mph</span>
+                <span className='wind-6'>Wind</span>
+                <span className='gusts'>Gusts</span>
+                <span className='nw'>{weatherData.wind.deg} °</span>
+              </div>
+              <div className='flex-row-bec'>
+                <div className='list' />
+                <div className='auto-layout-horizontal-7'>
+                <div className='pic-4' />
+                <span className='day-forecast'>7-DAY FORECAST</span>
+              </div>
+              <span className='low'>Low</span>
+              <span className='high'>High</span>
+              <div className='list-8'>
+                <div className='flex-row'>
+                  <span className='today'>Today</span>
+                  <span className='degreez'>23°</span>
+                  <div className='imagee' />
+                  <span className='degree-9'>15°</span>
+                </div>
+                <div className='line-a' />
+              </div>
         <div className='union' />
         <div className='list-b'>
           <div className='frame' />
