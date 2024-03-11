@@ -46,26 +46,26 @@ const Weather = () => {
       }
     }
   };
-
+  
   const fetchForecast = async () =>{
-      try{
-          console.log("coords", lat, lon);
-          const response = await axios.get(
-            //`https://api.openweathermap.org/data/2.5/forecast?lat=51.5085&lon=-0.1257&appid=b232c27ecc0088cdf71e7dd1310d7fab`
-            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
-          );
-          setForecast(response.data)
-          console.log("forecast");
-          console.log(response.data);
-          console.log(response.data.list[0]);
-      }catch(error){
-          console.error(error)
-      }
+    try{
+        console.log("coords", lat, lon);
+        const response = await axios.get(
+          //`https://api.openweathermap.org/data/2.5/forecast?lat=51.5085&lon=-0.1257&appid=b232c27ecc0088cdf71e7dd1310d7fab`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
+        );
+        setForecast(response.data)
+        console.log("forecast");
+        console.log(response.data);
+        console.log(response.data.list[0]);
+    }catch(error){
+        console.error(error)
+    }
 
-  };
+};
   useEffect(()=>{
       fetchData();
-      
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
@@ -78,6 +78,7 @@ const Weather = () => {
       fetchData(); 
   };  
   return (
+
     <div className='main-container'>
       <form onSubmit={handleSubmit} className='searchbar'>
         <input
