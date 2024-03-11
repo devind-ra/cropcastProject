@@ -2,36 +2,62 @@ import './index.css';
 import React, {useEffect, useState} from "react";
 import axios from 'axios'; 
 
+// Converts epoch time to hours and AM/PM separately
+export const convertEpochTimeToReadable = (epochTime) => {
+  const date = new Date(epochTime * 1000); // Convert seconds to milliseconds
+  const hours = date.getHours();
+  const hour = hours % 12 || 12; // Convert 0 (midnight) to 12 and keep 1-11 as is
+  const period = hours < 12 ? 'AM' : 'PM';
+
+  return { hour, period };
+};
+
+
 
 const Weather = () => {
   const[city, setCity] = useState("");
   const[weatherData, setWeatherData] = useState(null);
-  const[coords, setCoords] = useState(null);
+  const [coords, setCoord] = useState({ lat: 0, lon: 0 });
+
+  const[lat, setLat] = useState(0);
+  const[lon, setLon] = useState(0);
   const[forecast, setForecast] = useState(null);
 
   const fetchData = async () =>{
+    if (city !== "") {
       try{
           const response = await axios.get(
               `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
           );
           setWeatherData(response.data)
           console.log("weather");
-          setCoords(response.data.coord);
+          console.log("data coord",response.data.coord.lat, response.data.coord.lon);
+          setCoord({ lat: response.data.coord.lat, lon: response.data.coord.lon });
+          setLon(response.data.coord.lon);
+          setLat(response.data.coord.lat);
+          console.log("lat", lat);
+          console.log("lon", lon);
+          console.log("coord", coords);
           console.log(response.data);
+      
+          fetchForecast();
       }catch(error){
           console.error(error)
       }
+    }
   };
 
   const fetchForecast = async () =>{
       try{
-          console.log("coords", coords);
+          console.log("coords", lat, lon);
           const response = await axios.get(
-              `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
+            //`https://api.openweathermap.org/data/2.5/forecast?lat=51.5085&lon=-0.1257&appid=b232c27ecc0088cdf71e7dd1310d7fab`
+            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
           );
           setForecast(response.data)
           console.log("forecast");
           console.log(response.data);
+          console.log(response.data.list[0]);
       }catch(error){
           console.error(error)
       }
@@ -39,7 +65,7 @@ const Weather = () => {
   };
   useEffect(()=>{
       fetchData();
-      fetchForecast();
+      
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
@@ -160,7 +186,7 @@ const Weather = () => {
         <div className='image-d' />
         <div className='image-e' />
         <div className='image-f' />
-        <span className='temperature-21'>21°</span>
+        <span className='temperature-21'>{weatherData.main.temp}</span>
         <span className='temperature-21-10'>21°</span>
         <span className='temperature-19'>19°</span>
         <span className='temperature-19-11'>19°</span>
