@@ -6,23 +6,9 @@ import axios from 'axios';
 const Weather = () => {
   const[city, setCity] = useState("");
   const[weatherData, setWeatherData] = useState(null);
-  const[geo, setGeo] = useState(null);
   const[coords, setCoords] = useState(null);
   const[forecast, setForecast] = useState(null);
 
-  const fetchGeo = async () =>{
-      try{
-          const geo = await axios.get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
-          );
-          setGeo(geo.data)
-          console.log("geo");
-          console.log(geo.data);
-          setCoords(geo.data.coord);
-      }catch(error){
-          console.error(error)
-      }
-  };
   const fetchData = async () =>{
       try{
           const response = await axios.get(
@@ -30,6 +16,7 @@ const Weather = () => {
           );
           setWeatherData(response.data)
           console.log("weather");
+          setCoords(response.data.coord);
           console.log(response.data);
       }catch(error){
           console.error(error)
@@ -51,7 +38,6 @@ const Weather = () => {
 
   };
   useEffect(()=>{
-      fetchGeo();
       fetchData();
       fetchForecast();
       // eslint-disable-next-line react-hooks/exhaustive-deps
