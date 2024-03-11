@@ -30,12 +30,12 @@ button {
   margin: 0 auto;
   background: linear-gradient(136.79deg, #3a8e47, #245d91);
   /* border: calc(12 * var(--rpx)) solid #000000; For Border */
-  border-radius: calc(44 * var(--rpx));
+  /* border-radius: calc(44 * var(--rpx)); */
   box-shadow: calc(21 * var(--rpx)) calc(41 * var(--rpx)) calc(101 * var(--rpx))
     0 rgba(0, 0, 0, 0.39);
 } 
 /* Page 1 */
- .search {
+ /* .search {
   position: relative;
   width: calc(30 * var(--rpx));
   height: calc(30 * var(--rpx));
@@ -45,9 +45,44 @@ button {
   background-size: cover;
   z-index: 47;
   overflow: hidden;
-}
+} */
 
-.flex-row-ae {
+/* .searchbar {
+  input[type="text"]{
+    border:none;
+    background:none;
+    width:25px;
+    height:25px;
+    transition: all .25s ease-in .25s;
+    color: transparent;
+    font-size: .75erm;
+    line-height: 25px;
+    &:hover {
+      cursor: pointer;
+      &:focus{
+        cursor:text;
+      }
+      +span{
+        background: rgba(255,255,255,0.2);
+      }
+    }
+    &:focus{
+      width:200px;
+      padding:0 10px;
+      outline:none;
+      color:black;
+      background: none;
+      color:white;
+      + span{
+        width: 200px;
+        &::before 
+      }
+    }
+  }
+
+} */
+
+.flex-row-city {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,7 +105,7 @@ button {
   overflow: hidden;
 }
 
-.london {
+.city {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -89,7 +124,7 @@ button {
   z-index: 48;
 }
 
-.flex-row-f {
+.flex-row-maindescription {
   position: relative;
   width: calc(303.48780822753906 * var(--rpx));
   height: calc(107 * var(--rpx));
@@ -97,7 +132,7 @@ button {
   z-index: 46;
 }
 
-.mostly-clear {
+.mainweather-description {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +152,7 @@ button {
   z-index: 4;
 }
 
-.group {
+.mainweather-icon {
   position: absolute;
   width: calc(135.48780822753906 * var(--rpx));
   height: calc(101 * var(--rpx));
@@ -129,7 +164,7 @@ button {
   z-index: 46;
 }
 
-.degree {
+.mainweather-temp {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,14 +195,15 @@ button {
   overflow: hidden;
 }
 
-.flex-row-f-1 {
+.flex-row-mainweatherextra {
   position: relative;
   width: calc(303 * var(--rpx));
   height: calc(36 * var(--rpx));
   margin: calc(5 * var(--rpx)) 0 0 calc(46 * var(--rpx));
   z-index: 51;
 }
-.regroup {
+
+.minmaxTemp {
   position: absolute;
   width: calc(104 * var(--rpx));
   height: calc(36 * var(--rpx));
@@ -257,7 +293,7 @@ button {
   z-index: 50;
 }
 
-.flex-row-ca {
+.flex-row-farmadvice {
   position: relative;
   width: calc(341 * var(--rpx));
   height: calc(116 * var(--rpx));
@@ -346,7 +382,7 @@ button {
   text-align: left;
   letter-spacing: calc(0.6 * var(--rpx));
 }
-.flex-row-fa {
+.flex-row-hourly {
   position: relative;
   width: calc(342 * var(--rpx));
   height: calc(187 * var(--rpx));
@@ -372,7 +408,7 @@ button {
   z-index: 45;
   text-align: center;
 }
-.line {
+/* .line {
   position: relative;
   width: calc(326.68658447265625 * var(--rpx));
   height: calc(0.199951171875 * var(--rpx));
@@ -382,7 +418,7 @@ button {
     no-repeat center;
   background-size: cover;
   z-index: 44;
-}
+} */
 .rectangle-6 {
   position: absolute;
   width: calc(342 * var(--rpx));
