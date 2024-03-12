@@ -50,7 +50,7 @@ const Weather = () => {
         );
 
         const dayForecasts = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&cnt=8&lon=${response.data.coord.lon}&appid=${API}`
         );
 
         // Update state
@@ -211,7 +211,7 @@ const Weather = () => {
               <span className='percentage'>{data.weatherData.main.humidity}%</span>
               <span className='in-last-h'>in last 24h</span>
         <span className='mm-expected-in-next-h'>
-          {data.dayForecast.list[2].rain}mm expected in next 24h.
+        {Math.round(data.dayForecast.list[2].rain)}mm expected in 24h.
         </span>
          <span className='dew-point'>
           Visibility: {data.weatherData.visibility} m
@@ -332,10 +332,10 @@ const Weather = () => {
         <div className='list-2c'>
           <div className='frame-2d' />
           <div className='flex-row-b-2e'>
-            <span className='sun'>Sun</span>
-            <span className='degree-2f'>21°</span>
+            <span className='sun'>{epochToDay(data.dayForecast.list[7].dt)}</span>
+            <span className='degree-2f'>{kelvinToCelsius(data.dayForecast.list[7].temp.max)}°</span>
             <div className='image-30' />
-            <span className='degree-31'>13°</span>
+            <span className='degree-31'>{kelvinToCelsius(data.dayForecast.list[7].temp.min)}°</span>
             <div className='frame-32' />
           </div>
           <div className='line-33' />
