@@ -21,10 +21,7 @@ const Weather = () => {
   const[weatherData, setWeatherData] = useState(null);
   const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null});
   console.log("data", data);
-  const[lat, setLat] = useState(0);
-  const[lon, setLon] = useState(0);
-  const[forecast, setForecast] = useState(null);
-  const[pollution, setPollution] = useState(null);
+
 
   const fetchData = async () => {
     if (city !== "") {
@@ -42,8 +39,6 @@ const Weather = () => {
         );
         // Update state
         setWeatherData(response.data);
-        setLon(response.data.coord.lon);
-        setLat(response.data.coord.lat);
         setData(prevState => ({
           ...prevState,
           weatherData: response.data,
@@ -63,31 +58,6 @@ const Weather = () => {
       }
     }
   };
-  
-  /*
-  const fetchForecast = async (lat, lon) => {
-    try {
-        console.log("coords", lat, lon);
-        const forecasts = await axios.get(
-            `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${lat}&lon=${lon}&appid=${API}`
-        );
-        const pollutions = await axios.get(
-            `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API}`
-        );
-        //console.log("pollution", pollutions.data);
-        setPollution(pollutions.data);
-        setForecast(forecasts.data);
-        console.log("forecast" , forecasts.data);
-        console.log("pollution", pollutions.data);
-
-        console.log("forecast" , forecast);
-        // Note: This log might still show the old value because setForecast is async
-        console.log("pollution", pollution);
-
-    } catch (error) {
-        console.error(error);
-    }
-};*/
 
   useEffect(()=>{
       fetchData();
