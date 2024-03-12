@@ -11,6 +11,12 @@ export const convertEpochTimeToReadable = (epochTime) => {
 
   return { hour, period };
 };
+function epochToDay(epoch) {
+  var date = new Date(epoch * 1000);
+  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var dayOfWeek = days[date.getDay()];
+  return dayOfWeek;
+}
 export function kelvinToCelsius(kelvin) {
   return Math.round(kelvin - 273.15);
 }
@@ -24,7 +30,7 @@ const Weather = () => {
   const[API, setAPI] = useState("51326c1d8dd29acfc399a1c78b2b21b7")
   const[city, setCity] = useState("");
   const[weatherData, setWeatherData] = useState(null);
-  const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null});
+  const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null, dayForecast: null});
   console.log("data", data);
 
 
@@ -32,7 +38,7 @@ const Weather = () => {
     if (city !== "") {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API}`
+          `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API}`
         );
         console.log("data coord", response.data.coord.lat, response.data.coord.lon);
 
@@ -40,15 +46,21 @@ const Weather = () => {
           `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
         );
         const pollutions = await axios.get(
-          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
         );
+
+        const dayForecasts = await axios.get(
+          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+        );
+
         // Update state
         setWeatherData(response.data);
         setData(prevState => ({
           ...prevState,
           weatherData: response.data,
           forecast: forecasts.data,
-          pollution: pollutions.data
+          pollution: pollutions.data,
+          dayForecast: dayForecasts.data
         }));
       } catch (error) {
         console.error(error);
@@ -144,8 +156,7 @@ const Weather = () => {
               </div>
               <div className='rain-advice'>
                 <span className='rain-advice-5'>
-                Feels Like: {data.weatherData.main.feels_like}°C. 80% chance of rain with 20mm expected in the next 24 hours.
-                <br />
+                Feels Like: {data.weatherData.main.feels_like}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {data.dayForecast.list[2].rain}mm expected in the next 24 hours.
                 </span>
                 <span className='mulch-advice'>
                 Consider laying mulch around your crops as a protective measure. 🌱
@@ -179,11 +190,11 @@ const Weather = () => {
         <div className='image-d' />
         <div className='image-e' />
         <div className='image-f' />
-        <span className='temperature-21'>{Math.round(data.weatherData.main.temp)}</span>
-        <span className='temperature-21-10'>{kelvinToCelsius(data.forecast.list[0].main.temp)}</span>
-        <span className='temperature-19'>{kelvinToCelsius(data.forecast.list[1].main.temp)}</span>
-        <span className='temperature-19-11'>{kelvinToCelsius(data.forecast.list[2].main.temp)}</span>
-        <span className='temperature-19-12'>{kelvinToCelsius(data.forecast.list[3].main.temp)}</span>
+        <span className='temperature-21'>{Math.round(data.weatherData.main.temp)}°</span>
+        <span className='temperature-21-10'>{kelvinToCelsius(data.forecast.list[0].main.temp)}°</span>
+        <span className='temperature-19'>{kelvinToCelsius(data.forecast.list[1].main.temp)}°</span>
+        <span className='temperature-19-11'>{kelvinToCelsius(data.forecast.list[2].main.temp)}°</span>
+        <span className='temperature-19-12'>{kelvinToCelsius(data.forecast.list[3].main.temp)}°</span>
             </div>
             <div className='flex-row-c'>
               <div className='rectangle-13' />
@@ -196,19 +207,14 @@ const Weather = () => {
                 <div className='empty' />
                 <span className='humidity'>humidity</span>
               </div>
-              <span className='empty-16'>13</span>
-              <span className='mm'>mm</span>
+              <span className='empty-16'>{Math.round(data.dayForecast.list[0].rain)}mm</span>
               <span className='percentage'>{data.weatherData.main.humidity}%</span>
               <span className='in-last-h'>in last 24h</span>
         <span className='mm-expected-in-next-h'>
-          4 mm expected
-          <br />
-          in next 24h.
+          {data.dayForecast.list[2].rain}mm expected in next 24h.
         </span>
          <span className='dew-point'>
-          The dew point is
-          <br />
-          10° right now.
+          Visibility: {data.weatherData.visibility} m
         </span>
             </div>
       {/* End of First page */}
@@ -230,15 +236,15 @@ const Weather = () => {
               </div>
 
               <div className='line' />
-                <span className='percentage'>{data.weatherData.visibility} m </span>
-                <span className='dew-point'>pressure: {data.weatherData.main.pressure} hPa </span>
+                <span className='percentage'>{data.pollution.list[0].main.aqi}</span>
+                <span className='dew-point'>Pressure: <br></br> {data.weatherData.main.pressure} hPa </span>
                 <span className='number-12'>{mpstomph(data.weatherData.wind.speed)}</span>
-                <span className='number-24'>24</span>
+                <span className='number-24'>{mpstomph(data.forecast.list[0].wind.gust)}</span>
                 <span className='mph'>mph</span>
                 <span className='mph-5'>mph</span>
                 <span className='wind-6'>Wind</span>
                 <span className='gusts'>Gusts</span>
-                <span className='nw'>{data.weatherData.wind.deg} °</span>
+                <span className='nw'>{data.weatherData.wind.deg}°</span>
               </div>
               <div className='flex-row-bec'>
                 <div className='list' />
@@ -251,9 +257,9 @@ const Weather = () => {
               <div className='list-8'>
                 <div className='flex-row'>
                   <span className='today'>Today</span>
-                  <span className='degreez'>23°</span>
+                  <span className='degreez'>{kelvinToCelsius(data.dayForecast.list[0].temp.max)}°</span>
                   <div className='imagee' />
-                  <span className='degree-9'>15°</span>
+                  <span className='degree-9'>{kelvinToCelsius(data.dayForecast.list[0].temp.min )}°</span>
                 </div>
                 <div className='line-a' />
               </div>
@@ -264,9 +270,9 @@ const Weather = () => {
             <div className='image-Ca' />
             <div className='groupp'>
               <div className='flex-row-cbd'>
-                <span className='day-mon'>Mon</span>
-                <span className='temperature--high'>27°</span>
-                <span className='temperature--low'>18°</span>
+                <span className='day-mon'>{epochToDay(data.dayForecast.list[1].dt)}</span>
+                <span className='temperature--high'>{kelvinToCelsius(data.dayForecast.list[1].temp.max)}°</span>
+                <span className='temperature--low'>{kelvinToCelsius(data.dayForecast.list[1].temp.min)}°</span>
                 <div className='frame-d' />
               </div>
               <div className='line-e' />
@@ -276,19 +282,19 @@ const Weather = () => {
         <div className='list-f'>
           <div className='flex-row-b'>
             <div className='image-10' />
-            <span className='day-tue'>Tue</span>
-            <span className='temperature-high-11'>25°</span>
-            <span className='temperature-low-12'>20°</span>
+            <span className='day-tue'>{epochToDay(data.dayForecast.list[2].dt)}</span>
+            <span className='temperature-high-11'>{kelvinToCelsius(data.dayForecast.list[2].temp.max)}°</span>
+            <span className='temperature-low-12'>{kelvinToCelsius(data.dayForecast.list[2].temp.min)}°</span>
           </div>
           <div className='line-13' />
         </div>
         <div className='list-14'>
           <div className='frame-15' />
           <div className='flex-row-b-16'>
-            <span className='day-wed'>Wed</span>
-            <span className='temperature-high-17'>25°</span>
+            <span className='day-wed'>{epochToDay(data.dayForecast.list[3].dt)}</span>
+            <span className='temperature-high-17'>{kelvinToCelsius(data.dayForecast.list[3].temp.max)}°</span>
             <div className='sunny-color' />
-            <span className='temperature-low-18'>17°</span>
+            <span className='temperature-low-18'>{kelvinToCelsius(data.dayForecast.list[3].temp.min)}°</span>
             <div className='frame-19' />
           </div>
           <div className='line-1a' />
@@ -296,30 +302,30 @@ const Weather = () => {
         <div className='list-1b'>
           <div className='frame-1c' />
           <div className='flex-row-d-1d'>
-            <span className='span-thu'>Thu</span>
-            <span className='span-25'>25°</span>
+            <span className='span-thu'>{epochToDay(data.dayForecast.list[4].dt)}</span>
+            <span className='span-25'>{kelvinToCelsius(data.dayForecast.list[4].temp.max)}</span>
             <div className='image-1e' />
-            <span className='span-17'>17°</span>
+            <span className='span-17'>{kelvinToCelsius(data.dayForecast.list[4].temp.min)}</span>
             <div className='frame-1f' />
           </div>
           <div className='line-20' />
         </div>
         <div className='list-21'>
           <div className='flex-row-22'>
-            <span className='span-fri'>Fri</span>
-            <span className='span-26'>26°</span>
+            <span className='span-fri'>{epochToDay(data.dayForecast.list[5].dt)}</span>
+            <span className='span-26'>{kelvinToCelsius(data.dayForecast.list[5].temp.max)}°</span>
             <div className='image-23' />
-            <span className='span-20'>20°</span>
+            <span className='span-20'>{kelvinToCelsius(data.dayForecast.list[5].temp.min)}°</span>
             <div className='frame-24' />
           </div>
           <div className='line-25' />
         </div>
         <div className='list-26'>
           <div className='flex-row-27'>
-            <span className='span-sat'>Sat</span>
-            <span className='span-25-28'>25°</span>
+            <span className='span-sat'>{epochToDay(data.dayForecast.list[6].dt)}</span>
+            <span className='span-25-28'>{kelvinToCelsius(data.dayForecast.list[6].temp.max)}°</span>
             <div className='image-29' />
-            <span className='degree-2a'>18°</span>
+            <span className='degree-2a'>{kelvinToCelsius(data.dayForecast.list[6].temp.min)}°</span>
           </div>
           <div className='line-2b' />
         </div>
