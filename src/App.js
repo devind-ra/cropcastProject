@@ -45,14 +45,6 @@ const Weather = () => {
           forecast: forecasts.data,
           pollution: pollutions.data
         }));
-
-
-        //setWeatherData(response.data)
-
-
-  
-        // Pass lat and lon directly to fetchForecast or any function that needs them immediately
-        //fetchForecast(response.data.coord.lat, response.data.coord.lon);
       } catch (error) {
         console.error(error);
       }
@@ -65,7 +57,7 @@ const Weather = () => {
   },[]);
 
   const handleInputChange = (e) =>{
-      setCity(e.target.value);
+      setCity(e.target.value);// IDK IF WE should update the state here every time
   };
 
   const handleSubmit = (e) => {
