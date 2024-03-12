@@ -1,6 +1,7 @@
 import './index.css';
 import React, {useEffect, useState} from "react";
 import axios from 'axios'; 
+import { flushSync } from 'react-dom';
 
 // Converts epoch time to hours and AM/PM separately
 export const convertEpochTimeToReadable = (epochTime) => {
@@ -15,57 +16,81 @@ export const convertEpochTimeToReadable = (epochTime) => {
 
 
 const Weather = () => {
+  const[API, setAPI] = useState("51326c1d8dd29acfc399a1c78b2b21b7")
   const[city, setCity] = useState("");
   const[weatherData, setWeatherData] = useState(null);
-  const [coords, setCoord] = useState({ lat: 0, lon: 0 });
-
+  const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null});
+  console.log("data", data);
   const[lat, setLat] = useState(0);
   const[lon, setLon] = useState(0);
   const[forecast, setForecast] = useState(null);
+  const[pollution, setPollution] = useState(null);
 
-  const fetchData = async () =>{
+  const fetchData = async () => {
     if (city !== "") {
-      try{
-          const response = await axios.get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
-          );
-          setWeatherData(response.data)
-          console.log("weather");
-          console.log("data coord",response.data.coord.lat, response.data.coord.lon);
-          setCoord({ lat: response.data.coord.lat, lon: response.data.coord.lon });
-          setLon(response.data.coord.lon);
-          setLat(response.data.coord.lat);
-          console.log("lat", lat);
-          console.log("lon", lon);
-          console.log("coord", coords);
-          console.log(response.data);
-      
-          fetchForecast();
-      }catch(error){
-          console.error(error)
+      try {
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API}`
+        );
+        console.log("data coord", response.data.coord.lat, response.data.coord.lon);
+
+        const forecasts = await axios.get(
+          `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+        );
+        const pollutions = await axios.get(
+          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+        );
+        // Update state
+        setWeatherData(response.data);
+        setLon(response.data.coord.lon);
+        setLat(response.data.coord.lat);
+        setData(prevState => ({
+          ...prevState,
+          weatherData: response.data,
+          forecast: forecasts.data,
+          pollution: pollutions.data
+        }));
+
+
+        //setWeatherData(response.data)
+
+
+  
+        // Pass lat and lon directly to fetchForecast or any function that needs them immediately
+        //fetchForecast(response.data.coord.lat, response.data.coord.lon);
+      } catch (error) {
+        console.error(error);
       }
     }
   };
   
-  const fetchForecast = async () =>{
-    try{
+  /*
+  const fetchForecast = async (lat, lon) => {
+    try {
         console.log("coords", lat, lon);
-        const response = await axios.get(
-          //`https://api.openweathermap.org/data/2.5/forecast?lat=51.5085&lon=-0.1257&appid=b232c27ecc0088cdf71e7dd1310d7fab`
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=b232c27ecc0088cdf71e7dd1310d7fab` // eslint-disable-line no-template-curly-in-string
+        const forecasts = await axios.get(
+            `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${lat}&lon=${lon}&appid=${API}`
         );
-        setForecast(response.data)
-        console.log("forecast");
-        console.log(response.data);
-        console.log(response.data.list[0]);
-    }catch(error){
-        console.error(error)
-    }
+        const pollutions = await axios.get(
+            `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API}`
+        );
+        //console.log("pollution", pollutions.data);
+        setPollution(pollutions.data);
+        setForecast(forecasts.data);
+        console.log("forecast" , forecasts.data);
+        console.log("pollution", pollutions.data);
 
-};
+        console.log("forecast" , forecast);
+        // Note: This log might still show the old value because setForecast is async
+        console.log("pollution", pollution);
+
+    } catch (error) {
+        console.error(error);
+    }
+};*/
+
   useEffect(()=>{
       fetchData();
-
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
@@ -183,7 +208,7 @@ const Weather = () => {
         <div className='image-e' />
         <div className='image-f' />
         <span className='temperature-21'>{weatherData.main.temp}</span>
-        <span className='temperature-21-10'>21°</span>
+        <span className='temperature-21-10'>19</span>
         <span className='temperature-19'>19°</span>
         <span className='temperature-19-11'>19°</span>
         <span className='temperature-19-12'>19°</span>
