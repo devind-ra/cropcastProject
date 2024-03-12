@@ -57,7 +57,7 @@ const Weather = () => {
   },[]);
 
   const handleInputChange = (e) =>{
-      setCity(e.target.value);// IDK IF WE should update the state here every time
+      setCity(e.target.value);// IDK IF WE should update the state here
   };
 
   const handleSubmit = (e) => {
@@ -76,6 +76,8 @@ const Weather = () => {
         />
         <button type="submit">Get Weather</button>
       </form>
+      {console.log("weatherData after form", weatherData)}
+      {console.log("data after form", data)}
       {weatherData ? (
           <>
           {/* First page */}
