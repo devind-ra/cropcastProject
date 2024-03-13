@@ -27,7 +27,7 @@ function mpstomph(metersPerSecond) {
 
 
 const Weather = () => {
-  // (remove this when running it with the developer plan when functionality is made)
+  // (remove comment below when running it with the developer plan when functionality is made)
   // eslint-disable-next-line 
   const[API, setAPI] = useState("51326c1d8dd29acfc399a1c78b2b21b7")
   const[loading, setloading] = useState(false);
