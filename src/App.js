@@ -156,7 +156,7 @@ const Weather = () => {
               </div>
               <div className='rain-advice'>
                 <span className='rain-advice-5'>
-                Feels Like: {data.weatherData.main.feels_like}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {data.dayForecast.list[2].rain}mm expected in the next 24 hours.
+                Feels Like: {data.weatherData.main.feels_like}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {data.dayForecast.list[1].rain}mm expected in the next 24 hours.
                 </span>
                 <span className='mulch-advice'>
                 Consider laying mulch around your crops as a protective measure. 🌱
@@ -211,7 +211,7 @@ const Weather = () => {
               <span className='percentage'>{data.weatherData.main.humidity}%</span>
               <span className='in-last-h'>in last 24h</span>
         <span className='mm-expected-in-next-h'>
-        {Math.round(data.dayForecast.list[2].rain)}mm expected in 24h.
+        {Math.round(data.dayForecast.list[1].rain)}mm expected in 24h.
         </span>
          <span className='dew-point'>
           Visibility: {data.weatherData.visibility} m
