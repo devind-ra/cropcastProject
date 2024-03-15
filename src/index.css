@@ -1145,7 +1145,7 @@ button {
   left: calc(17 * var(--rpx));
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
+  font-size: calc(15 * var(--rpx));
   font-weight: 400;
   line-height: calc(20 * var(--rpx));
   text-align: left;
@@ -1165,7 +1165,7 @@ button {
   left: calc(197 * var(--rpx));
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
+  font-size: calc(15 * var(--rpx));
   font-weight: 400;
   line-height: calc(20 * var(--rpx));
   text-align: left;
@@ -1319,7 +1319,7 @@ button {
   justify-content: flex-start;
   position: absolute;
   height: 42px;
-  top: 41px;
+  top: 60px;
   left: 14px;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -1336,7 +1336,7 @@ button {
   justify-content: flex-start;
   position: absolute;
   height: 42px;
-  top: 41px;
+  top: 60px;
   left: 99px;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -1419,7 +1419,7 @@ button {
   justify-content: flex-start;
   position: absolute;
   height: 20px;
-  top: 88px;
+  top: 45px;
   left: 14px;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -1437,7 +1437,7 @@ button {
   justify-content: flex-start;
   position: absolute;
   height: 20px;
-  top: 88px;
+  top: 45px;
   left: 98px;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
