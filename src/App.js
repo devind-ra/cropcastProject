@@ -280,7 +280,7 @@ const Weather = () => {
                   <div className='icon-airquality' />
                   <span className='air-quality'>Air quality</span>
               </div>
-              <span className='percentage'>{data.pollution.list[0].main.aqi}</span>
+              <span className='percentage'>{data.pollution.list[0].main.aqi}%</span>
               <span className='visibility'>Pressure: <br></br> {data.weatherData.main.pressure} hPa </span>
 
           </div>
