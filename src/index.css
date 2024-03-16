@@ -621,7 +621,7 @@ button {
   width: calc(135 * var(--rpx));
   height: calc(18 * var(--rpx));
   margin: calc(13 * var(--rpx)) 0 0 calc(99 * var(--rpx));
-  cursor: pointer;
+/*   cursor: pointer; */
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
   font-size: calc(15 * var(--rpx));
@@ -1471,14 +1471,32 @@ button {
   letter-spacing: 0.68px;
   z-index: 73;
 }
+.direction {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 20px;
+  top: 100px;
+  left: 20px;
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: 0.96px;
+  z-index: 77;
+}
 .nw {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  position: absolute;
+  position: relative;
   height: 20px;
   top: 123px;
-  left: 58px;
+  left: 18px;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
   font-size: 24px;
