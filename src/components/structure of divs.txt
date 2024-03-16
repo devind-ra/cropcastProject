@@ -1,0 +1,13 @@
+<div className="App">
+      <div className='container'>
+          <div className="search">
+            <input type='text' name='city' placeholder='Search Location...'></input>
+          </div>
+          <div className="currentInfo">
+            <h3 className='locationName'>
+              London
+            </h3>
+          
+          </div>
+      </div>
+    </div>
