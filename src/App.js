@@ -350,20 +350,20 @@ const Weather = () => {
               </div>
             </div>
 
-            <div className='flex-row-c-a'>
-              <div className='auto-layout-horizontal-34'>
-                <span className='severe-weather'>severe weather </span>
+            <div className='severe-weather-outline'>
+              <div className='severe-weather-text'>
+                <span className='severe-weather'>severe weather</span>
               </div>
               <span className='heavy-thunderstorm'>
                 Heavy thunderstorm expected
-                at 16:00 on <br />22/02/2024
+                at 16:00 on 22/02/2024
               </span>
-              <div className='rectangle-35' />
+              <div className='severe-weather-box' />
             </div>
 
             {/* Historical Data */}
             <div className='flex-row-historical'>
-              <div className='historical-data'>Yesterday's Temperatures</div>
+              <div className='historical-data'>YESTERDAY'S DATA</div>
               {/* <div className='line' /> */}
               <div className='historical-data-box' />
               <span className='pm-6'>Now</span>
@@ -388,11 +388,24 @@ const Weather = () => {
               <div className='img3' />
               <div className='img4' />
               <div className='img5' />
+
               <span className='pm-6-temp'>{kelvinToCelsius(data.historical.list[0].main.temp)}°</span>
               <span className='pm-7-temp'>{kelvinToCelsius(data.historical.list[1].main.temp)}°</span>
               <span className='pm-8-temp'>{kelvinToCelsius(data.historical.list[2].main.temp)}°</span>
               <span className='pm-9-temp'>{kelvinToCelsius(data.historical.list[3].main.temp)}°</span>
               <span className='pm-10-temp'>{kelvinToCelsius(data.historical.list[4].main.temp)}°</span>
+            
+              <span className='pm-6-rain'>{data.historical.list[0]?.rain?.['1h'] !== undefined ? data.historical.list[0]?.rain?.['1h'] + 'mm' : '0mm'}</span>
+              <span className='pm-7-rain'>{data.historical.list[1]?.rain?.['1h'] !== undefined ? data.historical.list[1]?.rain?.['1h'] + 'mm' : '0mm'}</span>
+              <span className='pm-8-rain'>{data.historical.list[2]?.rain?.['1h'] !== undefined ? data.historical.list[2]?.rain?.['1h'] + 'mm' : '0mm'}</span>
+              <span className='pm-9-rain'>{data.historical.list[3]?.rain?.['1h'] !== undefined ? data.historical.list[3]?.rain?.['1h'] + 'mm' : '0mm'}</span>
+              <span className='pm-10-rain'>{data.historical.list[4]?.rain?.['1h'] !== undefined ? data.historical.list[4]?.rain?.['1h'] + 'mm' : '0mm'}</span>
+                
+              <span className='pm-6-wind'>{mpstomph(data.historical.list[0].wind.speed)}mph</span>
+              <span className='pm-7-wind'>{mpstomph(data.historical.list[1].wind.speed)}mph</span>
+              <span className='pm-8-wind'>{mpstomph(data.historical.list[2].wind.speed)}mph</span>
+              <span className='pm-9-wind'>{mpstomph(data.historical.list[3].wind.speed)}mph</span>
+              <span className='pm-10-wind'>{mpstomph(data.historical.list[4].wind.speed)}mph</span>
             </div>
             {/* End of second page */}
             </>
