@@ -53,6 +53,7 @@ button {
 
 .searchbar.initial-screen input{
   padding: 30px 30px;
+  font-size: large;
   font-family: SF Pro Display, var(--default-font-family);
   background-image: url("assets/images/bca0e1dc-edc2-4807-b305-50f635216934.png");
   background-size: 25px 25px;
@@ -61,6 +62,7 @@ button {
 }
 
 .searchbar.initial-screen button{
+  font-size: large;
   font-family: SF Pro Display, var(--default-font-family);
   border-radius: 10px;
 }
@@ -71,6 +73,7 @@ button {
 
 .searchbar.initial-screen input::placeholder{
   color: white;
+  font-size: large;
 }
 
 .searchbar.initial-screen input[type="text"]{
@@ -229,6 +232,7 @@ button {
 }
 
 .searchbar.functional-screen button{
+  font-size: large;
   font-family: SF Pro Display, var(--default-font-family);
   border-radius: 10px;
 }
