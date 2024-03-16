@@ -2177,18 +2177,20 @@ button {
   background-size: cover;
   z-index: 4;
 }
-.flex-row-c-a {
+
+/* Severe weather */
+.severe-weather-outline {
   position: relative;
   width: calc(342 * var(--rpx));
-  height: 93px;
+  height: 250px;
   margin: calc(28 * var(--rpx)) 0 0 calc(26 * var(--rpx));
   z-index: 22;
   overflow: visible auto;
 }
-.auto-layout-horizontal-34 {
+.severe-weather-text {
   position: relative;
   width: calc(135 * var(--rpx));
-  height: calc(18 * var(--rpx));
+  height: calc(25 * var(--rpx));
   margin: calc(13 * var(--rpx)) 0 0 calc(99 * var(--rpx));
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -2206,10 +2208,10 @@ button {
   flex-shrink: 0;
   flex-basis: auto;
   position: relative;
-  height: 18px;
+  height: 20px;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
-  font-size: 15px;
+  font-size: 26px;
   font-weight: 500;
   line-height: 17.9px;
   text-align: center;
@@ -2233,10 +2235,10 @@ button {
   letter-spacing: 0.8px;
   z-index: 89;
 }
-.rectangle-35 {
+.severe-weather-box {
   position: absolute;
   width: calc(341 * var(--rpx));
-  height: 93px;
+  height: 250px;
   top: 0;
   left: 0;
   background: url(./assets/images/56f6be83-ba86-4c48-9a51-a40e4f5bdf89.png)
@@ -2251,7 +2253,7 @@ button {
 .flex-row-historical {
   position: relative;
   width: calc(342 * var(--rpx));
-  height: calc(187 * var(--rpx));
+  height: calc(285 * var(--rpx));
   margin: calc(28 * var(--rpx)) 0 0 calc(26 * var(--rpx));
   z-index: 45;
   overflow: visible auto;
@@ -2273,7 +2275,9 @@ button {
   opacity: 0.5;
   z-index: 45;
   text-align: center;
+  text-transform: uppercase;
 }
+
 /* .line {
   position: relative;
   width: calc(326.68658447265625 * var(--rpx));
@@ -2285,10 +2289,11 @@ button {
   background-size: cover;
   z-index: 44;
 } */
+
 .historical-data-box {
   position: absolute;
   width: calc(342 * var(--rpx));
-  height: calc(187 * var(--rpx));
+  height: calc(265 * var(--rpx));
   top: 0;
   left: 0;
   background: url(./assets/images/ab88df25-a9ce-4f5d-aad1-0cbdb41b907f.png)
@@ -2502,6 +2507,8 @@ button {
   background-size: cover;
   z-index: 30;
 }
+
+/* Temperature */
 .pm-6-temp {
   display: flex;
   align-items: flex-start;
@@ -2591,4 +2598,196 @@ button {
   white-space: nowrap;
   letter-spacing: calc(0.11 * var(--rpx));
   z-index: 34;
+}
+
+/* Rain */
+.pm-6-rain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(190 * var(--rpx)); 
+  left: calc(18.37579345703125 * var(--rpx));
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx));
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx));
+  z-index: 38;
+}
+.pm-7-rain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(190 * var(--rpx)); 
+  left: calc(85.7550048828125 * var(--rpx));
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx));
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx));
+  z-index: 37;
+}
+.pm-8-rain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(190 * var(--rpx)); 
+  left: calc(153.13421630859375 * var(--rpx));
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx));
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx));
+  z-index: 36;
+}
+.pm-9-rain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(190 * var(--rpx));  
+  left: calc(222.554931640625 * var(--rpx)); 
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx)); 
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx)); 
+  z-index: 33; 
+}
+.pm-10-rain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  /**/
+  height: calc(26 * var(--rpx)); 
+  top: calc(190 * var(--rpx)); 
+  /**/
+  left: calc(291.97607421875 * var(--rpx)); 
+  /**/
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  /**/
+  line-height: calc(20 * var(--rpx)); 
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx)); 
+  z-index: 32; 
+}
+
+/* Wind */
+.pm-6-wind {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(231 * var(--rpx)); 
+  left: calc(18.37579345703125 * var(--rpx));
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx));
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx));
+  z-index: 38;
+}
+.pm-7-wind {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(231 * var(--rpx)); 
+  left: calc(85.7550048828125 * var(--rpx));
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx));
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx));
+  z-index: 37;
+}
+.pm-8-wind {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(231 * var(--rpx)); 
+  left: calc(153.13421630859375 * var(--rpx));
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx));
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx));
+  z-index: 36;
+}
+.pm-9-wind {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: calc(26 * var(--rpx)); 
+  top: calc(231 * var(--rpx));  
+  left: calc(222.554931640625 * var(--rpx)); 
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20 * var(--rpx)); 
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx)); 
+  z-index: 33; 
+}
+.pm-10-wind {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  /**/
+  height: calc(26 * var(--rpx)); 
+  top: calc(231 * var(--rpx)); 
+  /**/
+  left: calc(291.97607421875 * var(--rpx)); 
+  /**/
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(14 * var(--rpx));
+  font-weight: 500;
+  /**/
+  line-height: calc(20 * var(--rpx)); 
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: calc(0.11 * var(--rpx)); 
+  z-index: 32; 
 }
