@@ -37,6 +37,13 @@ const Weather = () => {
   const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null, dayForecast: null});
   // console.log("data", data);
 
+  var convert = {
+    toCompass: function(degrees)
+    {
+        return ['North', 'North-NorthEast', 'NorthEast', 'East-NorthEast', 'East', 'East-SouthEast', 'SouthEast', 'South-SouthEast', 'South', 'South-SouthWest', 'SouthWest', 'West-SouthWest', 'West', 'West-NorthWest', 'NorthWest', 'North-NorthWest', 'North'][Math.round(degrees / 11.25 / 2)];
+    }
+  }
+
   function capitalise(words){
     let wordsplits = words.split(" ");
     for (let i = 0; i < wordsplits.length; i++){
@@ -239,9 +246,9 @@ const Weather = () => {
                 <span className='rainfall'>Rainfall</span>
               </div>
               <span className='in-last-h'>in last 24h</span>
-              <span className='empty-16'>{Math.round(data.dayForecast.list[0].rain)}mm</span>
+              <span className='empty-16'>{isNaN(data.dayForecast.list[1].rain) ? 0: Math.round(data.dayForecast.list[0].rain)}mm</span>
               <span className='mm-expected-in-next-h'>
-                {Math.round(data.dayForecast.list[1].rain)}mm expected in 24h.
+                {isNaN(data.dayForecast.list[1].rain) ? 0: Math.round(data.dayForecast.list[0].rain)}mm expected in 24h.
               </span>
 
             <div className='rectangle-humidity'/>
@@ -251,7 +258,7 @@ const Weather = () => {
               </div>
             <span className='percentage'>{data.weatherData.main.humidity}%</span>
             <span className='visibility'>
-              Visibility: {data.weatherData.visibility} m
+              Visibility: <br/> {data.weatherData.visibility} m
             </span>
             
           </div>
@@ -273,6 +280,8 @@ const Weather = () => {
               <span className='mph-5'>mph</span>
               <span className='wind-6'>Wind</span>
               <span className='gusts'>Gusts</span>
+              <br/>
+              <span className='direction'>Wind Direction: <br/> {convert.toCompass(data.weatherData.wind.deg)}</span>
               <span className='nw'>{data.weatherData.wind.deg}°</span>
 
             <div className='rectangle-airquality' />
