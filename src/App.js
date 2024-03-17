@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios'; 
 import clearicon from './assets/images/01_sunny_color.svg';
 import two from './assets/images/02d.svg';
+import twon from './assets/images/02n.svg';
+import onen from './assets/images/01n.svg';
 import three from './assets/images/03d.svg'
 import four from './assets/images/04d.svg'
 import nine from './assets/images/09d.svg'
@@ -174,6 +176,15 @@ const Weather = () => {
     '11d': eleven,
     '13d': thirteen,
     '50d': fifty,
+    '01n': onen,
+    '02n': twon,
+    '03n': three,
+    '04n': four,
+    '09n': nine,
+    '10n': ten,
+    '11n': eleven,
+    '13n': thirteen,
+    '50n': fifty,
 
   };
   
@@ -304,7 +315,7 @@ const Weather = () => {
               <span className='time-4-1'>{convertEpochTimeToReadable(data.forecast.list[3].dt).hour}</span>
               <span className='time-4-2'>{convertEpochTimeToReadable(data.forecast.list[3].dt).period}</span>
             </div>
-            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].icon)})`}}/>
+            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(weatherData.weather[0].icon)})`}}/>
             <div className='image-1' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].icon)})`}}/>
             <div className='image-2' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
             <div className='image-3' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].icon)})`}}/>
