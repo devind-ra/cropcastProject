@@ -1,12 +1,16 @@
 import './index.css';
 import React, {useEffect, useState} from "react";
 import axios from 'axios'; 
+import clearicon from './assets/images/01_sunny_color.svg';
+import two from './assets/images/02d.svg';
+import three from './assets/images/03d.svg'
+import four from './assets/images/04d.svg'
+import nine from './assets/images/09d.svg'
+import ten from './assets/images/10d.svg'
+import eleven from './assets/images/11d.svg'
+import thirteen from './assets/images/13d.svg'
+import fifty from './assets/images/50d.svg'
 
-import clearicon from './assets/images/7bcb4423-711b-486f-8d28-6246d22692ec.png'
-import cloudicon from './assets/images/c4f454dd13c9f05bb127c07767fba04b7dc23272.png'
-import rainicon from './assets/images/d7761747446ce7d1b58b5773cc5c963f939cc45f.png'
-import defaulticon from './assets/images/7bcb4423-711b-486f-8d28-6246d22692ec.png'
-import thundericon from './assets/images/c9cb1b38a28412be84d8d3df8e162f5f0359e2ba.png'
 
 // Converts epoch time to hours and AM/PM separately
 export const convertEpochTimeToReadable = (epochTime) => {
@@ -161,14 +165,20 @@ const Weather = () => {
   };  
 
   const iconMapping = {
-    'Clear': clearicon,
-    'Clouds': cloudicon,
-    'Rain': rainicon,
-    'Thunder' : thundericon
+    '01d': clearicon,
+    '02d': two,
+    '03d': three,
+    '04d': four,
+    '09d': nine,
+    '10d': ten,
+    '11d': eleven,
+    '13d': thirteen,
+    '50d': fifty,
+
   };
   
   const getWeatherIcon = (condition) => {
-    return iconMapping[condition] || defaulticon; // Use a default icon as a fallback
+    return iconMapping[condition] || `https://openweathermap.org/img/wn/${condition}@2x.png`; // Use a default icon as a fallback
   };
 
 
@@ -210,7 +220,7 @@ const Weather = () => {
           <div className='flex-row-maindescription'>
             <span className='mainweather-description'>{capitalise(data.weatherData.weather[0].description)}</span>
             <div className='mainweather-icon' style={{
-              backgroundImage: `url(${getWeatherIcon(weatherData.weather[0].main)})`}}/> {/*Main image is this*/}
+              backgroundImage: `url(${getWeatherIcon(weatherData.weather[0].icon)})`}}/> {/*Main image is this*/}
             <span className='mainweather-temp'>{Math.round(data.weatherData.main.temp)}°</span>
           </div>
           <div className='flex-rowpictures'>
@@ -294,11 +304,11 @@ const Weather = () => {
               <span className='time-4-1'>{convertEpochTimeToReadable(data.forecast.list[3].dt).hour}</span>
               <span className='time-4-2'>{convertEpochTimeToReadable(data.forecast.list[3].dt).period}</span>
             </div>
-            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].main)})`}}/>
-            <div className='image-1' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].main)})`}}/>
-            <div className='image-2' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].main)})`}}/>
-            <div className='image-3' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].main)})`}}/>
-            <div className='image-4' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[4].weather[0].main)})`}}/>
+            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].icon)})`}}/>
+            <div className='image-1' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].icon)})`}}/>
+            <div className='image-2' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
+            <div className='image-3' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].icon)})`}}/>
+            <div className='image-4' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[4].weather[0].icon)})`}}/>
             <span className='temperature-0'>{Math.round(data.weatherData.main.temp)}°</span>
             <span className='temperature-1'>{kelvinToCelsius(data.forecast.list[0].main.temp)}°</span>
             <span className='temperature-2'>{kelvinToCelsius(data.forecast.list[1].main.temp)}°</span>
@@ -379,7 +389,7 @@ const Weather = () => {
               <div className='flex-row-0'>
                 <span className='today'>Today</span>
                 <span className='temp-high-0'>{kelvinToCelsius(data.dayForecast.list[0].temp.max)}°</span>
-                <div className='imagee' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].main)})`}}/>
+                <div className='imagee' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].icon)})`}}/>
                 <span className='temp-low-0'>{kelvinToCelsius(data.dayForecast.list[0].temp.min )}°</span>
               </div>
               {/* <div className='line-0' /> */}
@@ -390,7 +400,7 @@ const Weather = () => {
             <div className='day-1'>
               <div className='frame' />
               <div className='flex-row-1'>
-               <div className='image-Ca' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].main)})`}}/>
+               <div className='image-Ca' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].icon)})`}}/>
                 <div className='groupp'>
                   <div className='flex-row-cbd'>
                     <span className='day-mon'>{epochToDay(data.dayForecast.list[1].dt)}</span>
@@ -405,7 +415,7 @@ const Weather = () => {
 
             <div className='day-2'>
               <div className='flex-row-2'>
-                <div className='image-10' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].main)})`}}/>
+                <div className='image-10' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
                 <span className='day-tue'>{epochToDay(data.dayForecast.list[2].dt)}</span>
                 <span className='temp-high-2'>{kelvinToCelsius(data.dayForecast.list[2].temp.max)}°</span>
                 <span className='temp-low-2'>{kelvinToCelsius(data.dayForecast.list[2].temp.min)}°</span>
@@ -418,7 +428,7 @@ const Weather = () => {
               <div className='flex-row-3'>
                 <span className='day-wed'>{epochToDay(data.dayForecast.list[3].dt)}</span>
                 <span className='temp-high-3'>{kelvinToCelsius(data.dayForecast.list[3].temp.max)}°</span>
-                <div className='sunny-color' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].main)})`}}/>
+                <div className='sunny-color' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].icon)})`}}/>
                 <span className='temp-low-3'>{kelvinToCelsius(data.dayForecast.list[3].temp.min)}°</span>
                 <div className='frame-19' />
               </div>
@@ -430,7 +440,7 @@ const Weather = () => {
               <div className='flex-row-4'>
                 <span className='span-thu'>{epochToDay(data.dayForecast.list[4].dt)}</span>
                 <span className='temp-high-4'>{kelvinToCelsius(data.dayForecast.list[4].temp.max)}°</span>
-                <div className='image-1e' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[4].weather[0].main)})`}}/>
+                <div className='image-1e' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[4].weather[0].icon)})`}}/>
                 <span className='temp-low-4'>{kelvinToCelsius(data.dayForecast.list[4].temp.min)}°</span>
                 <div className='frame-1f' />
               </div>
@@ -441,7 +451,7 @@ const Weather = () => {
               <div className='flex-row-5'>
                 <span className='span-fri'>{epochToDay(data.dayForecast.list[5].dt)}</span>
                 <span className='temp-high-5'>{kelvinToCelsius(data.dayForecast.list[5].temp.max)}°</span>
-                <div className='image-23' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[5].weather[0].main)})`}}/>
+                <div className='image-23' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[5].weather[0].icon)})`}}/>
                 <span className='temp-low-5'>{kelvinToCelsius(data.dayForecast.list[5].temp.min)}°</span>
                 <div className='frame-24' />
               </div>
@@ -452,7 +462,7 @@ const Weather = () => {
               <div className='flex-row-6'>
                 <span className='span-sat'>{epochToDay(data.dayForecast.list[6].dt)}</span>
                 <span className='temp-high-6'>{kelvinToCelsius(data.dayForecast.list[6].temp.max)}°</span>
-                <div className='image-29' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[6].weather[0].main)})`}}/>
+                <div className='image-29' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[6].weather[0].icon)})`}}/>
                 <span className='temp-low-6'>{kelvinToCelsius(data.dayForecast.list[6].temp.min)}°</span>
               </div>
               {/* <div className='line-6' /> */}
@@ -463,7 +473,7 @@ const Weather = () => {
               <div className='flex-row-7'>
                 <span className='sun'>{epochToDay(data.dayForecast.list[7].dt)}</span>
                 <span className='temp-high-7'>{kelvinToCelsius(data.dayForecast.list[7].temp.max)}°</span>
-                <div className='image-30' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[7].weather[0].main)})`}}/>
+                <div className='image-30' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[7].weather[0].icon)})`}}/>
                 <span className='temp-low-7'>{kelvinToCelsius(data.dayForecast.list[7].temp.min)}°</span>
                 <div className='frame-32' />
               </div>
@@ -505,11 +515,11 @@ const Weather = () => {
               <span className='time-10'>{convertEpochTimeToReadable(data.forecast.list[3].dt).hour}</span>
               <span className='pm-10-historical'>{convertEpochTimeToReadable(data.forecast.list[3].dt).period}</span>
             </div>
-            <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[0].weather[0].main)})` }}/>
-            <div className='img2' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[1].weather[0].main)})` }}/>
-            <div className='img3' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[2].weather[0].main)})` }}/>
-            <div className='img4' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[3].weather[0].main)})` }}/>
-            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[4].weather[0].main)})` }}/>
+            <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[0].weather[0].icon)})` }}/>
+            <div className='img2' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[1].weather[0].icon)})` }}/>
+            <div className='img3' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[2].weather[0].icon)})` }}/>
+            <div className='img4' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[3].weather[0].icon)})` }}/>
+            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[4].weather[0].icon)})` }}/>
 
             <span className='pm-6-temp'>{kelvinToCelsius(data.historical.list[0].main.temp)}°</span>
             <span className='pm-7-temp'>{kelvinToCelsius(data.historical.list[1].main.temp)}°</span>
