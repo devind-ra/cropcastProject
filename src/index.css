@@ -424,7 +424,7 @@ button {
   width: calc(30 * var(--rpx));
   height: calc(30 * var(--rpx));
   margin: calc(9 * var(--rpx)) 0 0 calc(155 * var(--rpx));
-  background: url(./assets/images/8197a4c7-aefb-4290-a683-205f216fbdff.png)
+  background: url('./assets/images/sunset.svg')
     no-repeat center;
   background-size: cover;
   z-index: 49;
@@ -436,7 +436,7 @@ button {
   width: calc(30 * var(--rpx));
   height: calc(30 * var(--rpx));
   margin: calc(9 * var(--rpx)) 0 0 calc(-130 * var(--rpx));
-  background: url(./assets/images/Vector.png)
+  background: url('./assets/images/sunrise.svg')
     no-repeat center;
   background-size: contain;
   z-index: 49;
