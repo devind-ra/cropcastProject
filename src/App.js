@@ -273,9 +273,9 @@ const Weather = () => {
                 <span className='rainfall'>Rainfall</span>
               </div>
               <span className='in-last-h'>in last 24h</span>
-              <span className='empty-16'>{isNaN(data.dayForecast.list[1].rain) ? 0: Math.round(data.dayForecast.list[0].rain)}mm</span>
+              <span className='empty-16'>{isNaN(data.dayForecast.list[0].rain) ? 0: Math.round(data.dayForecast.list[0].rain)}mm</span>
               <span className='mm-expected-in-next-h'>
-                {isNaN(data.dayForecast.list[1].rain) ? 0: Math.round(data.dayForecast.list[0].rain)}mm expected in 24h.
+                {isNaN(data.dayForecast.list[1].rain) ? 0: Math.round(data.dayForecast.list[1].rain)}mm expected in 24h.
               </span>
 
             <div className='rectangle-humidity'/>
