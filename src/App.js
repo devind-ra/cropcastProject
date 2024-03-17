@@ -30,6 +30,36 @@ function mpstomph(metersPerSecond) {
   const milesPerHour = metersPerSecond * 2.23694;
   return Math.round(milesPerHour);
 }
+function analyzeWeatherData(temperature, precipitation, humidity) {
+  const advice = {
+      planting: "",
+      irrigation: "",
+      general: "",
+  };
+
+  // Example conditions - these should be adjusted based on real crop needs
+  if (temperature > 10 && temperature < 30) {
+      advice.planting = "Suitable temperature (" +temperature+ "°) for planting.";
+  } else {
+      advice.planting = "Temperature outside (" +temperature+ "°) optimal planting range.";
+  }
+
+  if (precipitation < 20) {
+      advice.irrigation = "Low week precipitation (" +Math.round(precipitation)+ "mm), consider irrigating.";
+  } else {
+      advice.irrigation = "Adequate week precipitation(" +Math.round(precipitation)+ "mm), irrigation might not be necessary.";
+  }
+
+  if (humidity > 80) {
+      advice.general = "High humidity, monitor for pests and diseases.";
+  } else if (humidity < 30) {
+      advice.general = "Low humidity, ensure crops are hydrated.";
+  } else {
+      advice.general = "Humidity within acceptable range.";
+  }
+
+  return advice.planting + " " + advice.irrigation + " " + advice.general;
+}
 
 
 const Weather = () => {
@@ -40,7 +70,7 @@ const Weather = () => {
   const[initialSearch, setinitialSearch] = useState(false);
   const[city, setCity] = useState("");
   const[weatherData, setWeatherData] = useState(null);
-  const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null, dayForecast: null});
+  const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null, dayForecast: null,weekRain: null});
   // console.log("data", data);
 
   var convert = {
@@ -80,7 +110,9 @@ const Weather = () => {
         const historicals = await axios.get(
           `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=51326c1d8dd29acfc399a1c78b2b21b7`
         );
-
+        
+        const weekRain = calculateTotalRainfall(dayForecasts.data.list);   
+        console.log("weekRain", weekRain);     
         // Update state
         setWeatherData(response.data);
         setData(prevState => ({
@@ -89,7 +121,8 @@ const Weather = () => {
           forecast: forecasts.data,
           pollution: pollutions.data,
           dayForecast: dayForecasts.data,
-          historical: historicals.data
+          historical: historicals.data,
+          weekRain: weekRain
         }));
         setWeatherData(response.data)
         setinitialSearch(true);
@@ -100,6 +133,17 @@ const Weather = () => {
         setloading(false);
       }
     }
+  };
+
+  const calculateTotalRainfall = (forecasts) => {
+    let totalRainfall = 0;
+    // Assuming forecasts is an array with daily forecast objects
+    // and each forecast object has a rain property that might be undefined
+    for (let i = 0; i < forecasts.length && i < 7; i++) { // Limit to last 7 days
+      const dailyRain = forecasts[i].rain || 0; // Use 0 if rain is undefined
+      totalRainfall += dailyRain;
+    }
+    return totalRainfall;
   };
 
   useEffect(()=>{
@@ -220,11 +264,10 @@ const Weather = () => {
               <span className='farm-advice-2'> FARM ADVICE</span>
             </div>
             <div className='advice-text'>
-              <span className='rain-advice'>
-              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {data.dayForecast.list[1].rain}mm expected in the next 24 hours.
-              </span>
               <span className='custom-advice'>
-              Consider laying mulch around your crops as a protective measure. 🌱
+              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected in the next 24 hours.
+
+              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)}
               </span>
             </div>
           </div>

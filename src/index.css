@@ -544,7 +544,7 @@ button {
 .flex-row-farmadvice {
   position: relative;
   width: calc(341 * var(--rpx));
-  height: calc(116 * var(--rpx));
+  height: 210px;
   /* margin: calc(33 * var(--rpx)) 0 0 calc(26 * var(--rpx)); */
   z-index: 26;
 }
@@ -552,7 +552,7 @@ button {
 .rectangle {
   position: absolute;
   width: calc(341 * var(--rpx));
-  height: calc(116 * var(--rpx));
+  height: 100%; 
   top: 0;
   left: 0;
   background: url(./assets/images/dda861d1-6416-4ba8-8f9d-f706e0348535.png)
