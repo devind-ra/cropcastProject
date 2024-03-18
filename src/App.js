@@ -67,6 +67,48 @@ function analyzeWeatherData(temperature, precipitation, humidity) {
   return advice.planting + " " + advice.irrigation + " " + advice.general;
 }
 
+function extremeWeather(temperature, precipitation){
+  const advice = {
+    temps: "",
+    rains: ""
+  };
+  if (temperature >= 32.2 && temperature < 39.4){
+    advice.temps = "Take Extreme Caution - Heatwave.";
+  }
+  if (temperature >= 39.4 && temperature < 51.1){
+    advice.temps = "Danger - Heatwave. Stay hydrated.";
+  }
+  if(temperature >= 51.7){
+    advice.temps = "Extreme Danger - Heatwave."
+  }
+  if(temperature <= 0){
+    advice.temps = "Beware of frost or snow";
+  }
+  if (precipitation >= 7.6 && precipitation <= 50){
+    advice.rains = "Heavy Rain Expected";
+  }
+  if (precipitation >= 50.1 && precipitation < 100){
+    advice.rains = "Very Heavy Rain Expected";
+  }
+  if (precipitation >= 100){
+    advice.rains = "Extreme Rain Expected";
+  }
+
+  if (advice.rains === "" && advice.temps === ""){
+    return "No Weather Alerts"; 
+  }
+  if (advice.temps === "" && advice.rains !== ""){
+    return advice.rains;
+  }
+  if (advice.temps !== "" && advice.rains === ""){
+    return advice.temps;
+  }
+  else{
+    return advice.temps + " " + advice.rains;
+  }
+}
+
+
 
 const Weather = () => {
   // (remove comment below when running it with the developer plan when functionality is made)
@@ -499,8 +541,7 @@ const Weather = () => {
               <span className='severe-weather'>severe weather </span>
             </div>
             <span className='severe-alert'>
-              Heavy thunderstorm expected
-              at 16:00 on <br />22/02/2024
+              {extremeWeather(data.weatherData.temp, data.weatherData.precipitation)}
             </span>
             <div className='rectangle-35' />
           </div>
