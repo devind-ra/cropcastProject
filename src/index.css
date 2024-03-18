@@ -476,7 +476,7 @@ button {
 
 .sunrise {
   position: relative;
-  width: calc(30 * var(--rpx));
+  width: calc(32 * var(--rpx));
   height: calc(30 * var(--rpx));
   margin: calc(9 * var(--rpx)) 0 0 calc(-130 * var(--rpx));
   background: url('./assets/images/sunrise.svg')
@@ -3105,4 +3105,13 @@ button {
   white-space: nowrap;
   letter-spacing: calc(0.11 * var(--rpx)); 
   z-index: 32; 
+}
+
+.Map {
+  height: 100vh;
+}
+
+.leaflet-container{
+  height: 100vh;
+  width: 100vh;
 }

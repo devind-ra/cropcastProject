@@ -5,13 +5,28 @@ import clearicon from './assets/images/01_sunny_color.svg';
 import two from './assets/images/02d.svg';
 import twon from './assets/images/02n.svg';
 import onen from './assets/images/01n.svg';
-import three from './assets/images/03d.svg'
-import four from './assets/images/04d.svg'
-import nine from './assets/images/09d.svg'
-import ten from './assets/images/10d.svg'
-import eleven from './assets/images/11d.svg'
-import thirteen from './assets/images/13d.svg'
-import fifty from './assets/images/50d.svg'
+import three from './assets/images/03d.svg';
+import four from './assets/images/04d.svg';
+import nine from './assets/images/09d.svg';
+import ten from './assets/images/10d.svg';
+import eleven from './assets/images/11d.svg';
+import thirteen from './assets/images/13d.svg';
+import fifty from './assets/images/50d.svg';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import "leaflet/dist/leaflet.css";
+
+function map() {
+ return (
+<MapContainer center={[51.505, -0.09]} zoom={5} scrollWheelZoom={false}>
+  <TileLayer
+    url="https://maps.openweathermap.org/maps/2.0/weather/TA2/2/1/1?date=1552861800&opacity=0.1&fill_bound=true&appid=51326c1d8dd29acfc399a1c78b2b21b7"
+    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    
+  />
+</MapContainer>
+ );
+}
+
 
 
 // Converts epoch time to hours and AM/PM separately
@@ -591,6 +606,12 @@ const Weather = () => {
             <span className='pm-9-wind'>{mpstomph(data.historical.list[3].wind.speed)}mph</span>
             <span className='pm-10-wind'>{mpstomph(data.historical.list[4].wind.speed)}mph</span>
           </div>
+          
+          <div className = 'Map'>
+              {map()}
+          </div>
+          
+
           {/* End of second page */}
           </>
             ): null}
@@ -599,4 +620,4 @@ const Weather = () => {
     </div>
   );
 }
-export default Weather; 
+export default Weather;
