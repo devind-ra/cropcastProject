@@ -15,6 +15,9 @@ body,html{
     --rpx: 500px / 390; /* Change 500px to 100vw if you want the old zoomed in version of the app */
 }
 
+/* .searchbutton{
+  opacity: 70;
+} */
 .main-container {
   overflow-y: auto;
   
@@ -62,13 +65,29 @@ button {
 }
 
 .searchbar.initial-screen button{
-  font-size: large;
-  font-family: SF Pro Display, var(--default-font-family);
-  border-radius: 10px;
+  background: #5E5DF0;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: SF Pro Display, var(--default-font-family);  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
 }
 .searchbar.initial-screen button:hover{
-  color:#000000;
-  background-color:#FFFFFF;
+  color:#ffffff;
+  background-color:#7e61ff;
+  transition: 0.5s;
 }
 
 .searchbar.initial-screen input::placeholder{
@@ -235,14 +254,37 @@ button {
 }
 
 .searchbar.functional-screen button{
-  font-size: large;
-  font-family: SF Pro Display, var(--default-font-family);
-  border-radius: 10px;
+
+  
+ 
+  background: #5E5DF0;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: SF Pro Display, var(--default-font-family);  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
 }
 .searchbar.functional-screen button:hover{
-  color:#000000;
-  background-color:#FFFFFF;
+  color:#ffffff;
+  background-color:#7e61ff;
+  transition: 0.5s;
 }
+  
+
+
+
 
 
 .main-container {
@@ -256,7 +298,8 @@ button {
   width: calc(390 * var(--rpx));
   height: 100%;
   margin: 0 auto;
-  background: linear-gradient(136.79deg, #3a8e47, #245d91);
+  background: linear-gradient(136.79deg, #010042, #5e0183);
+  /* background: linear-gradient(136.79deg, #3a8e47, #245d91); */
   /* border: calc(12 * var(--rpx)) solid #000000; For Border */
   /* border-radius: calc(44 * var(--rpx)); */
   box-shadow: calc(21 * var(--rpx)) calc(41 * var(--rpx)) calc(101 * var(--rpx))
