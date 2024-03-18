@@ -154,9 +154,16 @@ const Weather = () => {
         const dayForecasts = await axios.get(
           `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&cnt=8&lon=${response.data.coord.lon}&appid=${API}`
         );
+        let current = new Date();
+        current.setDate(current.getDate() - 5);
+        let fiveDays = Math.floor(current.getTime()/ 1000);
+        let currentTime = new Date();
+        let currentTimeUnix = Math.floor(currentTime.getTime() / 1000);
+        console.log(fiveDays);
+        console.log(currentTimeUnix);
         // Historical Data
         const historicals = await axios.get(
-          `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=51326c1d8dd29acfc399a1c78b2b21b7`
+          `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&type=day&start=${fiveDays}&end=${currentTimeUnix}&appid=${API}`
         );
         
         const weekRain = calculateTotalRainfall(dayForecasts.data.list);   
