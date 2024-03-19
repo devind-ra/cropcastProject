@@ -603,7 +603,7 @@ button {
   background-size: cover;
   z-index: 25;
   border-radius: calc(15 * var(--rpx));
-  /* backdrop-filter: blur(calc(2 * var(--rpx))); */
+  backdrop-filter: blur(calc(2 * var(--rpx)));
 }
 
 .farm-advice {

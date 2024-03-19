@@ -371,17 +371,18 @@ const Weather = () => {
             <br></br>
 
           <div className='flex-row-farmadvice'>
-            <div className='rectangle' />
-            <div className='farm-advice'>
-              <span className='farm-advice-1'>!</span>
-              <span className='farm-advice-2'> FARM ADVICE</span>
-            </div>
+            <div className='rectangle'>
+              <div className='farm-advice'>
+                <span className='farm-advice-1'>!</span>
+                <span className='farm-advice-2'> FARM ADVICE</span>
+              </div>
             <div className='advice-text'>
               <span className='custom-advice'>
               Feels Like: {Math.round(data.weatherData.main.feels_like)}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected in the next 24 hours.
 
               {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)}
               </span>
+            </div>
             </div>
           </div>
 
