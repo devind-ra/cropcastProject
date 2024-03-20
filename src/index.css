@@ -2564,7 +2564,6 @@ button {
   text-align: center;
   text-transform: uppercase;
 }
-
 /* .line {
   position: relative;
   width: calc(326.68658447265625 * var(--rpx));
@@ -2576,7 +2575,6 @@ button {
   background-size: cover;
   z-index: 44;
 } */
-
 .historical-data-box {
   position: absolute;
   width: calc(342 * var(--rpx));
@@ -2590,7 +2588,8 @@ button {
   border-radius: calc(15 * var(--rpx));
   backdrop-filter: blur(calc(2 * var(--rpx)));
 }
-.pm-6 {
+
+.pm-6-text {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -2606,6 +2605,15 @@ button {
   text-align: left;
   white-space: nowrap;
   z-index: 43;
+}
+.time-6 {
+  position: relative;
+  color: #ffffff;
+  font-family: SF Pro Display, var(--default-font-family);
+  font-size: calc(17 * var(--rpx));
+  font-weight: 500;
+  line-height: calc(20.287109375 * var(--rpx));
+  text-align: left;
 }
 .pm-7-text {
   position: absolute;
@@ -2623,15 +2631,6 @@ button {
   z-index: 42;
 }
 .time-7 {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
-.pm-7-historical {
   position: relative;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -2664,15 +2663,6 @@ button {
   line-height: calc(20.287109375 * var(--rpx));
   text-align: left;
 }
-.pm-8-historical {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
 .pm-9-text {
   position: absolute;
   width: calc(37.77313232421875 * var(--rpx));
@@ -2697,15 +2687,6 @@ button {
   line-height: calc(20.287109375 * var(--rpx));
   text-align: left;
 }
-.pm-9-historical {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
 .pm-10-text {
   position: absolute;
   width: calc(29.605968475341797 * var(--rpx));
@@ -2722,15 +2703,6 @@ button {
   z-index: 39;
 }
 .time-10 {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
-.pm-10-historical {
   position: relative;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -2886,7 +2858,6 @@ button {
   letter-spacing: calc(0.11 * var(--rpx));
   z-index: 34;
 }
-
 /* Rain */
 .pm-6-rain {
   display: flex;
@@ -2982,7 +2953,6 @@ button {
   letter-spacing: calc(0.11 * var(--rpx)); 
   z-index: 32; 
 }
-
 /* Wind */
 .pm-6-wind {
   display: flex;

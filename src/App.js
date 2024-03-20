@@ -108,7 +108,81 @@ function extremeWeather(temperature, precipitation){
   }
 }
 
+function groupDataByDay (data) {
+  const groupedData = {};
 
+  data.forEach (item => {
+    const date = new Date (item.dt * 1000);
+    // Get dateString in 'YYYY-MM-DD' format
+    const dateString = date.toISOString().split('T')[0];
+
+    // Check if already existing array for date
+    if (!groupedData[dateString]) {
+      // If not, create new array for new date
+      groupedData[dateString] = [];
+    }
+    // Push current data to array corresponding to date
+    groupedData[dateString].push(item);
+  });
+  return groupedData;
+}
+
+function convertToDate (unixTimeStamp) {
+  const milliseconds = unixTimeStamp * 1000;
+  const date = new Date(milliseconds);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+
+  return `${day}/${month}`;
+}
+
+function getTemps (apiResponse, date) {
+  const temps = [];
+  const tempEntries = apiResponse[Object.keys(apiResponse)[date]];
+  if (tempEntries && tempEntries.length > 0) {
+    for (const entry of tempEntries) {
+      const temp = entry.main.temp;
+      temps.push(temp);
+    }
+  }
+  return temps;
+}
+
+function getRains(apiResponse, date) {
+  const rains = [];
+  const rainEntries = apiResponse[Object.keys(apiResponse)[date]];
+  if (rainEntries && rainEntries.length > 0) {
+    for (const entry of rainEntries) {
+      // Check if the 'rain' property exists and has '1h' property inside it
+      const rain = entry.rain && entry.rain['1h'] !== undefined ? entry.rain['1h'] : 0;
+      rains.push(rain);
+    }
+  }
+  return rains;
+}
+
+function getWinds (apiResponse, date) {
+  const winds = [];
+  const windEntries = apiResponse[Object.keys(apiResponse)[date]];
+  if (windEntries && windEntries.length > 0) {
+    for (const entry of windEntries) {
+      const wind = entry.wind.speed;
+      winds.push(wind);
+    }
+  }
+  return winds;
+}
+
+function calcAvgData (data) {
+  if (data.length > 0) {
+    const dataSum = data.reduce((sum, data) => sum + data, 0);
+    const avgData = dataSum / data.length;
+    const roundedData = Math.round(avgData * 10) / 10;
+    return roundedData;
+  } else {
+    return null;
+  }
+}
 
 const Weather = () => {
   // (remove comment below when running it with the developer plan when functionality is made)
@@ -154,17 +228,24 @@ const Weather = () => {
         const dayForecasts = await axios.get(
           `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&cnt=8&lon=${response.data.coord.lon}&appid=${API}`
         );
-        let current = new Date();
-        current.setDate(current.getDate() - 5);
-        let fiveDays = Math.floor(current.getTime()/ 1000);
-        let currentTime = new Date();
-        let currentTimeUnix = Math.floor(currentTime.getTime() / 1000);
-        console.log(fiveDays);
-        console.log(currentTimeUnix);
         // Historical Data
+
+        let current = new Date();
+        current.setDate(current.getDate() - 5); // Subtract 6 instead of 5 to exclude today
+        let fiveDaysAgo = Math.floor(current.getTime() / 1000);
+
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1); // Subtract 1 to exclude today
+        let yesterdayUnix = Math.floor(yesterday.getTime() / 1000);
+
+        console.log(fiveDaysAgo);
+        console.log(yesterdayUnix);
+
         const historicals = await axios.get(
-          `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&type=day&start=${fiveDays}&end=${currentTimeUnix}&appid=${API}`
+          `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&type=day&start=${fiveDaysAgo}&end=${yesterdayUnix}&appid=${API}`
         );
+        const historicalDataByDay = groupDataByDay(historicals.data.list);
+        console.log(historicalDataByDay);
         
         const weekRain = calculateTotalRainfall(dayForecasts.data.list);   
         console.log("weekRain", weekRain);     
@@ -176,7 +257,7 @@ const Weather = () => {
           forecast: forecasts.data,
           pollution: pollutions.data,
           dayForecast: dayForecasts.data,
-          historical: historicals.data,
+          historical: historicalDataByDay,
           weekRain: weekRain
         }));
         setWeatherData(response.data)
@@ -555,48 +636,46 @@ const Weather = () => {
           <br/>
           {/* Historical Data */}
           <div className='flex-row-historical'>
-            <div className='historical-data'>YESTERDAY'S DATA</div>
+          <div className='historical-data'>LAST FIVE DAYS</div>
             <div className='historical-data-box' />
-            <span className='pm-6'>Now</span>
+            <div className='pm-6-text'>
+              <span className='time-6'>{convertToDate(data.historical[Object.keys(data.historical)[0]][0].dt)}</span>
+            </div>
             <div className='pm-7-text'>
-              <span className='time-7'>{convertEpochTimeToReadable(data.forecast.list[0].dt).hour}</span>
-              <span className='pm-7-historical'>{convertEpochTimeToReadable(data.forecast.list[0].dt).period}</span>
+              <span className='time-7'>{convertToDate(data.historical[Object.keys(data.historical)[1]][0].dt)}</span>
             </div>
             <div className='pm-8-text'>
-              <span className='time-8'>{convertEpochTimeToReadable(data.forecast.list[1].dt).hour}</span>
-              <span className='pm-8-historical'>{convertEpochTimeToReadable(data.forecast.list[1].dt).period}</span>
+              <span className='time-8'>{convertToDate(data.historical[Object.keys(data.historical)[2]][0].dt)}</span>
             </div>
             <div className='pm-9-text'>
-              <span className='time-9'>{convertEpochTimeToReadable(data.forecast.list[2].dt).hour}</span>
-              <span className='pm-9-historical'>{convertEpochTimeToReadable(data.forecast.list[2].dt).period}</span>
+              <span className='time-9'>{convertToDate(data.historical[Object.keys(data.historical)[3]][0].dt)}</span>
             </div>
             <div className='pm-10-text'>
-              <span className='time-10'>{convertEpochTimeToReadable(data.forecast.list[3].dt).hour}</span>
-              <span className='pm-10-historical'>{convertEpochTimeToReadable(data.forecast.list[3].dt).period}</span>
+              <span className='time-10'>{convertToDate(data.historical[Object.keys(data.historical)[4]][0].dt)}</span>
             </div>
-            <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[0].weather[0].icon)})` }}/>
-            <div className='img2' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[1].weather[0].icon)})` }}/>
-            <div className='img3' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[2].weather[0].icon)})` }}/>
-            <div className='img4' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[3].weather[0].icon)})` }}/>
-            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical.list[4].weather[0].icon)})` }}/>
+            <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[0]][0].weather[0].icon)})` }}/>
+            <div className='img2' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[1]][0].weather[0].icon)})` }}/>
+            <div className='img3' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[2]][0].weather[0].icon)})` }}/>
+            <div className='img4' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[3]][0].weather[0].icon)})` }}/>
+            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[4]][0].weather[0].icon)})` }}/>
 
-            <span className='pm-6-temp'>{kelvinToCelsius(data.historical.list[0].main.temp)}°</span>
-            <span className='pm-7-temp'>{kelvinToCelsius(data.historical.list[1].main.temp)}°</span>
-            <span className='pm-8-temp'>{kelvinToCelsius(data.historical.list[2].main.temp)}°</span>
-            <span className='pm-9-temp'>{kelvinToCelsius(data.historical.list[3].main.temp)}°</span>
-            <span className='pm-10-temp'>{kelvinToCelsius(data.historical.list[4].main.temp)}°</span>
+            <span className='pm-6-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 0)))}°</span>
+            <span className='pm-7-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 1)))}°</span>
+            <span className='pm-8-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 2)))}°</span>
+            <span className='pm-9-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 3)))}°</span>
+            <span className='pm-10-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 4)))}°</span>
       
-            <span className='pm-6-rain'>{data.historical.list[0]?.rain?.['1h'] !== undefined ? data.historical.list[0]?.rain?.['1h'] + 'mm' : '0mm'}</span>
-            <span className='pm-7-rain'>{data.historical.list[1]?.rain?.['1h'] !== undefined ? data.historical.list[1]?.rain?.['1h'] + 'mm' : '0mm'}</span>
-            <span className='pm-8-rain'>{data.historical.list[2]?.rain?.['1h'] !== undefined ? data.historical.list[2]?.rain?.['1h'] + 'mm' : '0mm'}</span>
-            <span className='pm-9-rain'>{data.historical.list[3]?.rain?.['1h'] !== undefined ? data.historical.list[3]?.rain?.['1h'] + 'mm' : '0mm'}</span>
-            <span className='pm-10-rain'>{data.historical.list[4]?.rain?.['1h'] !== undefined ? data.historical.list[4]?.rain?.['1h'] + 'mm' : '0mm'}</span>
-          
-            <span className='pm-6-wind'>{mpstomph(data.historical.list[0].wind.speed)}mph</span>
-            <span className='pm-7-wind'>{mpstomph(data.historical.list[1].wind.speed)}mph</span>
-            <span className='pm-8-wind'>{mpstomph(data.historical.list[2].wind.speed)}mph</span>
-            <span className='pm-9-wind'>{mpstomph(data.historical.list[3].wind.speed)}mph</span>
-            <span className='pm-10-wind'>{mpstomph(data.historical.list[4].wind.speed)}mph</span>
+            <span className='pm-6-rain'>{calcAvgData(getRains(data.historical, 0))}mm</span>
+            <span className='pm-7-rain'>{calcAvgData(getRains(data.historical, 1))}mm</span>
+            <span className='pm-8-rain'>{calcAvgData(getRains(data.historical, 2))}mm</span>
+            <span className='pm-9-rain'>{calcAvgData(getRains(data.historical, 3))}mm</span>
+            <span className='pm-10-rain'>{calcAvgData(getRains(data.historical, 4))}mm</span>
+            
+            <span className='pm-6-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 0)))}mph</span>
+            <span className='pm-7-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 1)))}mph</span>
+            <span className='pm-8-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 2)))}mph</span>
+            <span className='pm-9-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 3)))}mph</span>
+            <span className='pm-10-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 4)))}mph</span>
           </div>
           {/* End of second page */}
           </>
