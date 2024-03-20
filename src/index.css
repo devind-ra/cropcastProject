@@ -1,3 +1,18 @@
+@keyframes fadeInExpand {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.main-container-enter {
+  animation: fadeInExpand 0.5s ease-out forwards;
+}
+
 body,html{
   margin:0;
   padding:0;
