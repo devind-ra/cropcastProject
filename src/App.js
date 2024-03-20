@@ -47,7 +47,7 @@ function analyzeWeatherData(temperature, precipitation, humidity) {
   if (temperature > 10 && temperature < 30) {
       advice.planting = "Planting: (" +temperature+ "°) is optimal for planting.";
   } else {
-      advice.planting = "Planting: (" +temperature+ "°) outside optimal planting range.";
+      advice.planting = "Planting: (" +temperature+ "°) not in optimal range.";
   }
 
   if (precipitation < 10) {
@@ -467,7 +467,7 @@ const Weather = () => {
               </div>
             <div className='advice-text'>
               <span className='custom-advice'>
-              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C.<br></br> Rain: {data.dayForecast.list[0].pop * 100}% chance with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected. <br></br>
+              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C.<br></br> Rain: {Math.round(data.dayForecast.list[0].pop * 100)}% chance with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected. <br></br>
 
               {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[0]}  <br></br> 
               {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[1]} <br></br>
