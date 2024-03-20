@@ -243,7 +243,7 @@ const Weather = () => {
 
 
   return (
-    <div className='main-container'>
+    <div className={`main-container ${initialSearch ? 'main-container-enter' : ''}`}>
       {loading ? (
             <p>Loading Weather Data...</p>
         ) : (
