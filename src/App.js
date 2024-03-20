@@ -283,7 +283,7 @@ const Weather = () => {
         // Historical Data
 
         let current = new Date();
-        current.setDate(current.getDate() - 5); // Subtract 6 instead of 5 to exclude today
+        current.setDate(current.getDate() - 6); // Subtract 6 instead of 5 to exclude today
         let fiveDaysAgo = Math.floor(current.getTime() / 1000);
 
         let yesterday = new Date();
@@ -709,11 +709,11 @@ const Weather = () => {
             <div className='pm-10-text'>
               <span className='time-10'>{convertToDate(data.historical[Object.keys(data.historical)[4]][0].dt)}</span>
             </div>
-            <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[0]][0].weather[0].icon)})` }}/>
+            {/* <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[0]][0].weather[0].icon)})` }}/>
             <div className='img2' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[1]][0].weather[0].icon)})` }}/>
             <div className='img3' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[2]][0].weather[0].icon)})` }}/>
             <div className='img4' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[3]][0].weather[0].icon)})` }}/>
-            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[4]][0].weather[0].icon)})` }}/>
+            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[4]][0].weather[0].icon)})` }}/> */}
 
             <span className='pm-6-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 0)))}°</span>
             <span className='pm-7-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 1)))}°</span>
