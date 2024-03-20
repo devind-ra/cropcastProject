@@ -203,7 +203,7 @@ button {
         cursor:text;
       }
       +span{
-        background: rgba(255,255,255,0.2);
+        /* background: rgba(255,255,255,0.2); */
       }
     }
     &:focus{
@@ -230,7 +230,7 @@ button {
     +span{
       position:absolute;
       z-index: -1;
-      border:2px solid white;
+      /* border:2px solid white; */
       top:0;
       width:25px;
       height: 25px;
@@ -245,7 +245,7 @@ button {
         width: 10px;
         height:5px;
         border-radius: 5px;
-        background: white;
+        /* background: white; */
         transform: rotate(45deg) translate(26px, -2px);
       }
     }
