@@ -152,9 +152,10 @@ function changeBackground(weather) {
           container.style.background = "black url('https://i.gifer.com/Xkjj.gif') no-repeat";
           container.style.backgroundSize = "contain"; // Adjust this as needed
           break;
-
-      }
-    }
+      default:
+        container.style.background = "background: linear-gradient(136.79deg, #010042, #5e0183)";
+  }
+}
   //container.style.backgroundSize = 'cover'; 
   //container.style.backgroundPosition = 'center'; 
   //container.style.backgroundRepeat = 'no-repeat'; 
