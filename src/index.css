@@ -587,7 +587,7 @@ button {
 .flex-row-farmadvice {
   position: relative;
   width: calc(341 * var(--rpx));
-  height: 210px;
+  height: 180px;
   /* margin: calc(33 * var(--rpx)) 0 0 calc(26 * var(--rpx)); */
   z-index: 26;
 }

@@ -45,26 +45,26 @@ function analyzeWeatherData(temperature, precipitation, humidity) {
 
   // Example conditions - these should be adjusted based on real crop needs
   if (temperature > 10 && temperature < 30) {
-      advice.planting = "Suitable temperature (" +temperature+ "°) for planting.";
+      advice.planting = "Planting: (" +temperature+ "°) is optimal for planting.";
   } else {
-      advice.planting = "Temperature outside (" +temperature+ "°) optimal planting range.";
+      advice.planting = "Planting: (" +temperature+ "°) outside optimal planting range.";
   }
 
-  if (precipitation < 20) {
-      advice.irrigation = "Low week precipitation (" +Math.round(precipitation)+ "mm), consider irrigating.";
+  if (precipitation < 10) {
+      advice.irrigation = "Irrigation: low rain, consider irrigating.";
   } else {
-      advice.irrigation = "Adequate week precipitation(" +Math.round(precipitation)+ "mm), irrigation might not be necessary.";
+      advice.irrigation = "Irrigation: adequate rain, not required.";
   }
 
   if (humidity > 80) {
-      advice.general = "High humidity, monitor for pests and diseases.";
+      advice.general = "Humidity: high, monitor for pests.";
   } else if (humidity < 30) {
-      advice.general = "Low humidity, ensure crops are hydrated.";
+      advice.general = "Humidity: low, hydrate crops ASAP.";
   } else {
-      advice.general = "Humidity within acceptable range.";
+      advice.general = "Humidity: acceptable range.";
   }
 
-  return advice.planting + " " + advice.irrigation + " " + advice.general;
+  return [advice.planting , advice.irrigation , advice.general];
 }
 
 function extremeWeather(temperature, precipitation){
@@ -378,9 +378,11 @@ const Weather = () => {
               </div>
             <div className='advice-text'>
               <span className='custom-advice'>
-              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C. {data.dayForecast.list[0].pop * 100}% chance of rain with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected in the next 24 hours.
+              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C.<br></br> Rain: {data.dayForecast.list[0].pop * 100}% chance with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected. <br></br>
 
-              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)}
+              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[0]}  <br></br> 
+              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[1]} <br></br>
+              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[2]}
               </span>
             </div>
             </div>
