@@ -559,7 +559,7 @@ const Weather = () => {
               <span className='gusts'>Gusts</span>
               <br/>
               <span className='direction'>Wind Direction: <br/> {convert.toCompass(data.weatherData.wind.deg)}</span>
-              <span className='nw'>Wind Degrees: <br/> {data.weatherData.wind.deg}°</span>
+              {/* <span className='nw'>Wind Degrees: <br/> {data.weatherData.wind.deg}°</span> */}
 
             <div className='rectangle-airquality' />
               <div className='header-right'>
