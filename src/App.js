@@ -152,9 +152,11 @@ function changeBackground(weather) {
           container.style.background = "black url('https://i.gifer.com/Xkjj.gif') no-repeat";
           container.style.backgroundSize = "contain"; // Adjust this as needed
           break;
-
-      }
-    }
+      default:
+        container.style.background = "background: linear-gradient(136.79deg, #3a8e47, #245d91)";
+        break;
+  }
+}
   //container.style.backgroundSize = 'cover'; 
   //container.style.backgroundPosition = 'center'; 
   //container.style.backgroundRepeat = 'no-repeat'; 
@@ -393,7 +395,7 @@ const Weather = () => {
            value={city}
             onChange={handleInputChange}
             />
-          <span className='search-icon'></span>
+          {/* <span className='search-icon'></span> */}
           <button type="submit" className="searchbutton">Get Weather</button>
       </form>
       {console.log("weatherData after form", weatherData)}
@@ -707,11 +709,11 @@ const Weather = () => {
             <div className='pm-10-text'>
               <span className='time-10'>{convertToDate(data.historical[Object.keys(data.historical)[4]][0].dt)}</span>
             </div>
-            <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[0]][0].weather[0].icon)})` }}/>
+            {/* <div className='img1' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[0]][0].weather[0].icon)})` }}/>
             <div className='img2' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[1]][0].weather[0].icon)})` }}/>
             <div className='img3' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[2]][0].weather[0].icon)})` }}/>
             <div className='img4' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[3]][0].weather[0].icon)})` }}/>
-            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[4]][0].weather[0].icon)})` }}/>
+            <div className='img5' style={{backgroundImage: `url(${getWeatherIcon(data.historical[Object.keys(data.historical)[4]][0].weather[0].icon)})` }}/> */}
 
             <span className='pm-6-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 0)))}°</span>
             <span className='pm-7-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 1)))}°</span>
