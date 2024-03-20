@@ -45,9 +45,9 @@ function analyzeWeatherData(temperature, precipitation, humidity) {
 
   // Example conditions - these should be adjusted based on real crop needs
   if (temperature > 10 && temperature < 30) {
-      advice.planting = "Planting: (" +temperature+ "°) is optimal for planting.";
+      advice.planting = "Planting: (" +Math.round(temperature)+ "°) is optimal for planting.";
   } else {
-      advice.planting = "Planting: (" +temperature+ "°) not in optimal range.";
+      advice.planting = "Planting: (" +Math.round(temperature)+ "°) not in optimal range.";
   }
 
   if (precipitation < 10) {
@@ -120,7 +120,6 @@ function changeBackground(weather) {
           break;
       case '04d':
       case '03d':
-      case '04n':
       case '03n':
           //CLOUDS
           container.style.background = "linear-gradient(177deg, rgb(94, 106, 129), rgb(0 25 47)) center center / contain no-repeat";
@@ -132,6 +131,8 @@ function changeBackground(weather) {
           container.style.background = "linear-gradient(95deg, rgb(54 93 255), rgb(72 169 255)) center center / contain no-repeat";
           container.style.backgroundSize = "contain"; // Adjust this as needed
           break;
+          
+      case '04n':
       case '11d':
       case '11n':
         //THUNDERSTORM
