@@ -2575,6 +2575,7 @@ button {
   border-radius: calc(15 * var(--rpx));
   backdrop-filter: blur(calc(2 * var(--rpx)));
 }
+
 .pm-6-text {
   display: flex;
   align-items: flex-start;
@@ -2593,15 +2594,6 @@ button {
   z-index: 43;
 }
 .time-6 {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
-.pm-6-historical {
   position: relative;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -2634,15 +2626,6 @@ button {
   line-height: calc(20.287109375 * var(--rpx));
   text-align: left;
 }
-.pm-7-historical {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
 .pm-8-text {
   position: absolute;
   width: calc(35.73134231567383 * var(--rpx));
@@ -2659,15 +2642,6 @@ button {
   z-index: 41;
 }
 .time-8 {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
-.pm-8-historical {
   position: relative;
   color: #ffffff;
   font-family: SF Pro Display, var(--default-font-family);
@@ -2700,15 +2674,6 @@ button {
   line-height: calc(20.287109375 * var(--rpx));
   text-align: left;
 }
-.pm-9-historical {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
 .pm-10-text {
   position: absolute;
   width: calc(29.605968475341797 * var(--rpx));
@@ -2733,22 +2698,14 @@ button {
   line-height: calc(20.287109375 * var(--rpx));
   text-align: left;
 }
-.pm-10-historical {
-  position: relative;
-  color: #ffffff;
-  font-family: SF Pro Display, var(--default-font-family);
-  font-size: calc(17 * var(--rpx));
-  font-weight: 500;
-  line-height: calc(20.287109375 * var(--rpx));
-  text-align: left;
-}
+
+/*
 .img1 {
   position: absolute;
   width: calc(36.75224304199219 * var(--rpx));
   height: calc(36 * var(--rpx));
   top: calc(93 * var(--rpx));
   left: calc(15.3133544921875 * var(--rpx));
-  /* background: url(./assets/images/c4f454dd13c9f05bb127c07767fba04b7dc23272.png) no-repeat center; */
   background: no-repeat center;
   background-size: cover;
   z-index: 33;
@@ -2759,7 +2716,6 @@ button {
   height: calc(36 * var(--rpx));
   top: calc(94 * var(--rpx));
   left: calc(80.65106201171875 * var(--rpx));
-  /* background: url(./assets/images/c4f454dd13c9f05bb127c07767fba04b7dc23272.png) no-repeat center; */
   background: no-repeat center;
   background-size: cover;
   z-index: 32;
@@ -2770,8 +2726,6 @@ button {
   height: calc(36 * var(--rpx));
   top: calc(94 * var(--rpx));
   left: calc(153.13421630859375 * var(--rpx));
-  /* background: url(./assets/images/c4f454dd13c9f05bb127c07767fba04b7dc23272.png) no-repeat center; */
-  background: no-repeat center;
   background-size: cover;
   z-index: 31;
 }
@@ -2781,7 +2735,6 @@ button {
   height: calc(36 * var(--rpx));
   top: calc(94 * var(--rpx));
   left: calc(223.57589721679688 * var(--rpx));
-  /* background: url(./assets/images/c9cb1b38a28412be84d8d3df8e162f5f0359e2ba.png) no-repeat center; */
   background: no-repeat center;
   background-size: cover;
   z-index: 29;
@@ -2792,11 +2745,11 @@ button {
   height: calc(36 * var(--rpx));
   top: calc(94 * var(--rpx));
   left: calc(288.9136047363281 * var(--rpx));
-  /* background: url(./assets/images/c9cb1b38a28412be84d8d3df8e162f5f0359e2ba.png) no-repeat center; */
   background: no-repeat center;
   background-size: cover;
   z-index: 30;
 }
+*/
 
 /* Temperature */
 .pm-6-temp {
