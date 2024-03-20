@@ -153,7 +153,8 @@ function changeBackground(weather) {
           container.style.backgroundSize = "contain"; // Adjust this as needed
           break;
 
-  }
+      }
+    }
   //container.style.backgroundSize = 'cover'; 
   //container.style.backgroundPosition = 'center'; 
   //container.style.backgroundRepeat = 'no-repeat'; 
@@ -738,4 +739,4 @@ const Weather = () => {
     </div>
   );
 }
-export default Weather; 
+export default Weather;
