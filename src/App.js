@@ -30,14 +30,15 @@ import {
   getWinds,
   calcAvgData
 } from "./historicaldataFunctions.js";
-import InitialScreen from './InitialScreen.js';
-import SearchBar from './SearchBar.js';
-import City from './City.js';
+import InitialScreen from './components/InitialScreen.js';
+import SearchBar from './components/SearchBar.js';
+import City from './components/City.js';
 import MainDescription from './MainDescription.js';
-import MainIcon from "./MainIcon.js";
-import ExtraInfo from "./ExtraInfo.js";
-import FarmAdvice from './FarmAdvice.js';
-import HourlyForecast from './HourlyForecast.js';
+import MainIcon from "./components/MainIcon.js";
+import ExtraInfo from "./components/ExtraInfo.js";
+import FarmAdvice from './components/FarmAdvice.js';
+import HourlyForecast from './components/HourlyForecast.js';
+import RainHumidity from './components/RainHumidity.js';
 
 function changeBackground(weather) {
   const container = document.querySelector('.main-container'); // Select the main container
@@ -264,31 +265,7 @@ const Weather = () => {
           <br></br>
           <HourlyForecast data={data} weatherData={weatherData} convertEpochTimeToReadable={convertEpochTimeToReadable} getWeatherIcon={getWeatherIcon} kelvinToCelsius={kelvinToCelsius}/>
           <br></br>
-
-          <div className='flex-row-rainhumidity'>
-
-            <div className='rectangle-rain'/>
-              <div className='header-left'>
-                <div className='icon-rain' />
-                <span className='rainfall'>Rainfall</span>
-              </div>
-              <span className='in-last-h'>in last 24h</span>
-              <span className='empty-16'>{isNaN(data.dayForecast.list[0].rain) ? 0: Math.round(data.dayForecast.list[0].rain)}mm</span>
-              <span className='mm-expected-in-next-h'>
-                {isNaN(data.dayForecast.list[1].rain) ? 0: Math.round(data.dayForecast.list[1].rain)}mm expected in 24h.
-              </span>
-
-            <div className='rectangle-humidity'/>
-              <div className='header-right'>
-                <div className='icon-humidity' />
-                <span className='humidity'>humidity</span>
-              </div>
-            <span className='percentage'>{data.weatherData.main.humidity}%</span>
-            <span className='visibility'>
-              Visibility: <br/> {data.weatherData.visibility} m
-            </span>
-            
-          </div>
+          <RainHumidity data={data} weatherData={weatherData}/>
       {/* End of First page */}
       
       {/* Start of Second page */}
