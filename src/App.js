@@ -33,7 +33,7 @@ import {
 import InitialScreen from './components/InitialScreen.js';
 import SearchBar from './components/SearchBar.js';
 import City from './components/City.js';
-import MainDescription from './MainDescription.js';
+import MainDescription from './components/MainDescription.js';
 import MainIcon from "./components/MainIcon.js";
 import ExtraInfo from "./components/ExtraInfo.js";
 import FarmAdvice from './components/FarmAdvice.js';
