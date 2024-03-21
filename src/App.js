@@ -52,6 +52,7 @@ function changeBackground(weather) {
       case '04d':
       case '03d':
       case '03n':
+      case '04n':
           //CLOUDS
           container.style.background = "linear-gradient(177deg, rgb(94, 106, 129), rgb(0 25 47)) center center / contain no-repeat";
           container.style.backgroundSize = "contain"; // Adjust this as needed
@@ -63,7 +64,6 @@ function changeBackground(weather) {
           container.style.backgroundSize = "contain"; // Adjust this as needed
           break;
           
-      case '04n':
       case '11d':
       case '11n':
         //THUNDERSTORM
