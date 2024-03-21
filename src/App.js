@@ -32,6 +32,12 @@ import {
 } from "./historicaldataFunctions.js";
 import InitialScreen from './InitialScreen.js';
 import SearchBar from './SearchBar.js';
+import City from './City.js';
+import MainDescription from './MainDescription.js';
+import MainIcon from "./MainIcon.js";
+import ExtraInfo from "./ExtraInfo.js";
+import FarmAdvice from './FarmAdvice.js';
+import HourlyForecast from './HourlyForecast.js';
 
 function changeBackground(weather) {
   const container = document.querySelector('.main-container'); // Select the main container
@@ -240,6 +246,7 @@ const Weather = () => {
         handleInputChange={handleInputChange}
         city={city}
         initialSearch={initialSearch}
+        fetchData={fetchData}
       />
       {console.log("weatherData after form", weatherData)}
       {console.log("data after form", data)}
@@ -247,115 +254,15 @@ const Weather = () => {
           <>
           {/* First page */}
 
-          <div className='flex-row-city'>
-            {console.log("name", data.weatherData.name)}
-            {console.log(data.forecast.city.name)}
-            <span className='city'>{data.weatherData.name}</span>
-          </div>
+          <City data={data} weatherData={weatherData}/>
 
-          <div className='flex-row-maindescription'>
-            <span className='mainweather-description'>{capitalise(data.weatherData.weather[0].description)}</span>
-            <div className='mainweather-icon' style={{
-              backgroundImage: `url(${getWeatherIcon(weatherData.weather[0].icon)})`}}/> {/*Main image is this*/}
-            <span className='mainweather-temp'>{Math.round(data.weatherData.main.temp)}°</span>
-            {changeBackground(weatherData.weather[0].icon)}
-          </div>
-          <div className='flex-rowpictures'>
-            <div className='sunset' /> 
-            <div className='sunrise' />
-          </div>
-          <div className='flex-row-mainweatherextra'>
-            <div className='minmaxTemp'>
-              <span className='temperature-high'>H: {Math.round(data.weatherData.main.temp_max)}°</span>
-              <span className='temperature-low'>L: {Math.round(data.weatherData.main.temp_min)}°</span>
-            </div>
-            <span className='time-span'>{data.weatherData.sys.sunrise &&(
-                        <p> 
-                            {(() => {
-                                let sunriseTimeStamp = data.weatherData.sys.sunrise;
-                                let milliseconds = sunriseTimeStamp * 1000;
-                                let dateObject = new Date(milliseconds);
-                                let hours =  dateObject.getHours();
-                                let minutes = dateObject.getMinutes(); 
-                                let check = hours < 12 ? 'AM' : 'PM';
-                                hours = hours % 12 || 12;
-                                hours = String(hours).padStart(2, '0');
-                                minutes = String(minutes).padStart(2, '0');
-                                return ` ${hours}:${minutes} ${check}`;
-                            })()}
-                        </p>
-                    )}</span>
-              <span className='time-span-2'>{data.weatherData.sys.sunset &&(
-                        <p>
-                            {(() => {
-                                let sunsetTimeStamp = data.weatherData.sys.sunset;
-                                let milliseconds = sunsetTimeStamp * 1000;
-                                let dateObject = new Date(milliseconds);
-                                let hours =  dateObject.getHours();
-                                let minutes = dateObject.getMinutes(); 
-                                hours = String(hours).padStart(2, '0');
-                                minutes = String(minutes).padStart(2, '0');
-                                let check = hours < 12 ? 'AM' : 'PM';
-                                return ` ${hours}:${minutes} ${check}`;
-                            })()}
-                        </p>
-                    )}</span>
-            </div>
-
-            <br></br>
-
-          <div className='flex-row-farmadvice'>
-            <div className='rectangle'>
-              <div className='farm-advice'>
-                <span className='farm-advice-1'>!</span>
-                <span className='farm-advice-2'> FARM ADVICE</span>
-              </div>
-            <div className='advice-text'>
-              <span className='custom-advice'>
-              Feels Like: {Math.round(data.weatherData.main.feels_like)}°C.<br></br> Rain: {Math.round(data.dayForecast.list[0].pop * 100)}% chance with {isNaN(data.dayForecast.list[1].rain) ? 0 : Math.round(data.dayForecast.list[1].rain)}mm expected. <br></br>
-
-              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[0]}  <br></br> 
-              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[1]} <br></br>
-              {analyzeWeatherData(data.weatherData.main.temp, data.weekRain, data.weatherData.main.humidity)[2]}
-              </span>
-            </div>
-            </div>
-          </div>
-
-            <br></br>
-
-          <div className='flex-row-hourly'>
-            <div className='hourly-forecast'>HOURLY FORECAST</div>
-            <div className='rectangle-6' />
-            <span className='now'>Now</span>
-            <div className='time-1'>
-              <span className='time-1-1'>{convertEpochTimeToReadable(data.forecast.list[0].dt).hour}</span>
-              <span className='time-1-2'>{convertEpochTimeToReadable(data.forecast.list[0].dt).period}</span>
-            </div>
-            <div className='time-2'>
-              <span className='time-2-1'>{convertEpochTimeToReadable(data.forecast.list[1].dt).hour}</span>
-              <span className='time-2-2'>{convertEpochTimeToReadable(data.forecast.list[1].dt).period}</span>
-            </div>
-            <div className='time-3'>
-              <span className='time-3-1'>{convertEpochTimeToReadable(data.forecast.list[2].dt).hour}</span>
-              <span className='time-3-2'>{convertEpochTimeToReadable(data.forecast.list[2].dt).period}</span>
-            </div>
-            <div className='time-4'>
-              <span className='time-4-1'>{convertEpochTimeToReadable(data.forecast.list[3].dt).hour}</span>
-              <span className='time-4-2'>{convertEpochTimeToReadable(data.forecast.list[3].dt).period}</span>
-            </div>
-            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(weatherData.weather[0].icon)})`}}/>
-            <div className='image-1' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].icon)})`}}/>
-            <div className='image-2' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
-            <div className='image-3' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].icon)})`}}/>
-            <div className='image-4' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[4].weather[0].icon)})`}}/>
-            <span className='temperature-0'>{Math.round(data.weatherData.main.temp)}°</span>
-            <span className='temperature-1'>{kelvinToCelsius(data.forecast.list[0].main.temp)}°</span>
-            <span className='temperature-2'>{kelvinToCelsius(data.forecast.list[1].main.temp)}°</span>
-            <span className='temperature-3'>{kelvinToCelsius(data.forecast.list[2].main.temp)}°</span>
-            <span className='temperature-4'>{kelvinToCelsius(data.forecast.list[3].main.temp)}°</span>
-          </div>
-
+          <MainDescription data={data} weatherData={weatherData} capitalise={capitalise} getWeatherIcon={getWeatherIcon} changeBackground={changeBackground}/>
+          <MainIcon />
+          <ExtraInfo data={data} weatherData={weatherData}/>
+          <br></br>
+          <FarmAdvice data={data} weatherData={weatherData} analyzeWeatherData={analyzeWeatherData}/>
+          <br></br>
+          <HourlyForecast data={data} weatherData={weatherData} convertEpochTimeToReadable={convertEpochTimeToReadable} getWeatherIcon={getWeatherIcon} kelvinToCelsius={kelvinToCelsius}/>
           <br></br>
 
           <div className='flex-row-rainhumidity'>

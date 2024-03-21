@@ -1,8 +1,8 @@
 import React from "react";
 
-const SearchBar = ({handleSubmit, handleInputChange, city, initialSearch}) => {
+const SearchBar = ({handleSubmit, handleInputChange, city, initialSearch, fetchData}) => {
     return (
-        <form onSubmit={handleSubmit} className={`searchbar ${initialSearch ? 'functional-screen': 'initial-screen'}`}>
+        <form onSubmit={(e) => { e.preventDefault(); fetchData(); }} className={`searchbar ${initialSearch ? 'functional-screen': 'initial-screen'}`}>
             <input
             type="text"
             placeholder="Enter city name"
