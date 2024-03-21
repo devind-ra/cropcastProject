@@ -5,111 +5,36 @@ import clearicon from './assets/images/01_sunny_color.svg';
 import two from './assets/images/02d.svg';
 import twon from './assets/images/02n.svg';
 import onen from './assets/images/01n.svg';
-import three from './assets/images/03d.svg'
-import four from './assets/images/04d.svg'
-import nine from './assets/images/09d.svg'
-import ten from './assets/images/10d.svg'
-import eleven from './assets/images/11d.svg'
-import thirteen from './assets/images/13d.svg'
-import fifty from './assets/images/50d.svg'
-
-
-// Converts epoch time to hours and AM/PM separately
-export const convertEpochTimeToReadable = (epochTime) => {
-  const date = new Date(epochTime * 1000); // Convert seconds to milliseconds
-  const hours = date.getHours();
-  const hour = hours % 12 || 12; // Convert 0 (midnight) to 12 and keep 1-11 as is
-  const period = hours < 12 ? 'AM' : 'PM';
-
-  return { hour, period };
-};
-function epochToDay(epoch) {
-  var date = new Date(epoch * 1000);
-  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  var dayOfWeek = days[date.getDay()];
-  return dayOfWeek;
-}
-export function kelvinToCelsius(kelvin) {
-  return Math.round(kelvin - 273.15);
-}
-function mpstomph(metersPerSecond) {
-  const milesPerHour = metersPerSecond * 2.23694;
-  return Math.round(milesPerHour);
-}
-function analyzeWeatherData(temperature, precipitation, humidity) {
-  const advice = {
-      planting: "",
-      irrigation: "",
-      general: "",
-  };
-
-  // Example conditions - these should be adjusted based on real crop needs
-  if (temperature > 10 && temperature < 30) {
-      advice.planting = "Planting: (" +Math.round(temperature)+ "°) is optimal for planting.";
-  } else {
-      advice.planting = "Planting: (" +Math.round(temperature)+ "°) not in optimal range.";
-  }
-
-  if (precipitation < 10) {
-      advice.irrigation = "Irrigation: low rain, consider irrigating.";
-  } else {
-      advice.irrigation = "Irrigation: adequate rain, not required.";
-  }
-
-  if (humidity > 80) {
-      advice.general = "Humidity: high, monitor for pests.";
-  } else if (humidity < 30) {
-      advice.general = "Humidity: low, hydrate crops ASAP.";
-  } else {
-      advice.general = "Humidity: acceptable range.";
-  }
-
-  return [advice.planting , advice.irrigation , advice.general];
-}
-
-function extremeWeather(temperature, precipitation){
-  const advice = {
-    temps: "",
-    rains: ""
-  };
-  if (temperature >= 32.2 && temperature < 39.4){
-    advice.temps = "Take Extreme Caution - Heatwave.";
-  }
-  if (temperature >= 39.4 && temperature < 51.1){
-    advice.temps = "Danger - Heatwave. Stay hydrated.";
-  }
-  if(temperature >= 51.7){
-    advice.temps = "Extreme Danger - Heatwave."
-  }
-  if(temperature <= 0){
-    advice.temps = "Beware of frost or snow";
-  }
-  if (precipitation >= 7.6 && precipitation <= 50){
-    advice.rains = "Heavy Rain Expected";
-  }
-  if (precipitation >= 50.1 && precipitation < 100){
-    advice.rains = "Very Heavy Rain Expected";
-  }
-  if (precipitation >= 100){
-    advice.rains = "Extreme Rain Expected";
-  }
-
-  if (advice.rains === "" && advice.temps === ""){
-    return "No Weather Alerts"; 
-  }
-  if (advice.temps === "" && advice.rains !== ""){
-    return advice.rains;
-  }
-  if (advice.temps !== "" && advice.rains === ""){
-    return advice.temps;
-  }
-  else{
-    return advice.temps + " " + advice.rains;
-  }
-}
+import three from './assets/images/03d.svg';
+import four from './assets/images/04d.svg';
+import nine from './assets/images/09d.svg';
+import ten from './assets/images/10d.svg';
+import eleven from './assets/images/11d.svg';
+import thirteen from './assets/images/13d.svg';
+import fifty from './assets/images/50d.svg';
+import {
+  convertEpochTimeToReadable,
+  epochToDay,
+  kelvinToCelsius,
+  mpstomph
+} from "./weatherdataConversions.js";
+import {
+  analyzeWeatherData,
+  extremeWeather
+} from "./adviceandalerts.js";
+import {
+  groupDataByDay,
+  convertToDate,
+  getTemps,
+  getRains,
+  getWinds,
+  calcAvgData
+} from "./historicaldataFunctions.js";
+import InitialScreen from './InitialScreen.js';
+import SearchBar from './SearchBar.js';
 
 function changeBackground(weather) {
-  const container = document.querySelector('.main-container'); // Sel ect the main container
+  const container = document.querySelector('.main-container'); // Select the main container
   switch (weather) {
       case '13d':
       case '13n':
@@ -160,81 +85,6 @@ function changeBackground(weather) {
   //container.style.backgroundSize = 'cover'; 
   //container.style.backgroundPosition = 'center'; 
   //container.style.backgroundRepeat = 'no-repeat'; 
-function groupDataByDay (data) {
-  const groupedData = {};
-
-  data.forEach (item => {
-    const date = new Date (item.dt * 1000);
-    // Get dateString in 'YYYY-MM-DD' format
-    const dateString = date.toISOString().split('T')[0];
-
-    // Check if already existing array for date
-    if (!groupedData[dateString]) {
-      // If not, create new array for new date
-      groupedData[dateString] = [];
-    }
-    // Push current data to array corresponding to date
-    groupedData[dateString].push(item);
-  });
-  return groupedData;
-}
-
-function convertToDate (unixTimeStamp) {
-  const milliseconds = unixTimeStamp * 1000;
-  const date = new Date(milliseconds);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-
-  return `${day}/${month}`;
-}
-
-function getTemps (apiResponse, date) {
-  const temps = [];
-  const tempEntries = apiResponse[Object.keys(apiResponse)[date]];
-  if (tempEntries && tempEntries.length > 0) {
-    for (const entry of tempEntries) {
-      const temp = entry.main.temp;
-      temps.push(temp);
-    }
-  }
-  return temps;
-}
-
-function getRains(apiResponse, date) {
-  const rains = [];
-  const rainEntries = apiResponse[Object.keys(apiResponse)[date]];
-  if (rainEntries && rainEntries.length > 0) {
-    for (const entry of rainEntries) {
-      // Check if the 'rain' property exists and has '1h' property inside it
-      const rain = entry.rain && entry.rain['1h'] !== undefined ? entry.rain['1h'] : 0;
-      rains.push(rain);
-    }
-  }
-  return rains;
-}
-
-function getWinds (apiResponse, date) {
-  const winds = [];
-  const windEntries = apiResponse[Object.keys(apiResponse)[date]];
-  if (windEntries && windEntries.length > 0) {
-    for (const entry of windEntries) {
-      const wind = entry.wind.speed;
-      winds.push(wind);
-    }
-  }
-  return winds;
-}
-
-function calcAvgData (data) {
-  if (data.length > 0) {
-    const dataSum = data.reduce((sum, data) => sum + data, 0);
-    const avgData = dataSum / data.length;
-    const roundedData = Math.round(avgData * 10) / 10;
-    return roundedData;
-  } else {
-    return null;
-  }
-}
 
 const Weather = () => {
   // (remove comment below when running it with the developer plan when functionality is made)
@@ -382,22 +232,15 @@ const Weather = () => {
         ) : (
           <>
             {!initialSearch && (
-                <div className={`initial-screen`}>
-                  <h1>Welcome to CropCast</h1>
-                  <p>Empowering Farmers with Precision Weather Forecasting</p>
-                </div>
+                <InitialScreen />
             )}
       
-      <form onSubmit={handleSubmit} className={`searchbar ${initialSearch ? 'functional-screen': 'initial-screen'}`}>
-            <input
-            type="text"
-            placeholder="Enter city name"
-           value={city}
-            onChange={handleInputChange}
-            />
-          <span className='search-icon'></span>
-          <button type="submit" className="searchbutton">Get Weather</button>
-      </form>
+      <SearchBar
+        handleSubmit={handleSubmit}
+        handleInputChange={handleInputChange}
+        city={city}
+        initialSearch={initialSearch}
+      />
       {console.log("weatherData after form", weatherData)}
       {console.log("data after form", data)}
       { data && weatherData ? (
