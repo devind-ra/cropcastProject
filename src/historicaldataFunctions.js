@@ -32,6 +32,7 @@ export function getTemps (apiResponse, date) {
   //Acquires temperatures from historical data 
     const temps = [];
     const tempEntries = apiResponse[Object.keys(apiResponse)[date]];
+    //Ensures that there are temperature entries to be accessed
     if (tempEntries && tempEntries.length > 0) {
       for (const entry of tempEntries) {
         const temp = entry.main.temp;
@@ -45,6 +46,7 @@ export function getRains(apiResponse, date) {
   // Acquires rainfall from historical data 
     const rains = [];
     const rainEntries = apiResponse[Object.keys(apiResponse)[date]];
+    //Checks that the rainfall entries can be found
     if (rainEntries && rainEntries.length > 0) {
       for (const entry of rainEntries) {
         // Check if the 'rain' property exists and has '1h' property inside it
@@ -59,6 +61,7 @@ export function getWinds (apiResponse, date) {
   // Acquires wind information from historical data 
     const winds = [];
     const windEntries = apiResponse[Object.keys(apiResponse)[date]];
+    // Ensures that there are wind entries present
     if (windEntries && windEntries.length > 0) {
       for (const entry of windEntries) {
         const wind = entry.wind.speed;
@@ -73,6 +76,7 @@ export function calcAvgData (data) {
     if (data.length > 0) {
       const dataSum = data.reduce((sum, data) => sum + data, 0);
       const avgData = dataSum / data.length;
+      // Ensures the format of the data is correct 
       const roundedData = Math.round(avgData * 10) / 10;
       return roundedData;
     } else {
