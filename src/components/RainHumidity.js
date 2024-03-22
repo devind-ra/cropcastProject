@@ -1,6 +1,6 @@
 import React from "react";
 
-const RainHumidity = ({data, weatherData}) => {
+const RainHumidity = ({data}) => {
     return (
         <div className='flex-row-rainhumidity'>
 

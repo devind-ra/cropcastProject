@@ -1,6 +1,8 @@
 import React from "react";
+import { getWeatherIcon } from "../weatherdataConversions";
+import { convertEpochTimeToReadable, kelvinToCelsius } from "../weatherdataConversions";
 
-const HourlyForecast = ({data, weatherData, convertEpochTimeToReadable, getWeatherIcon, kelvinToCelsius}) => {
+const HourlyForecast = ({data}) => {
     return (
         <div className='flex-row-hourly'>
             <div className='hourly-forecast'>HOURLY FORECAST</div>
@@ -22,7 +24,7 @@ const HourlyForecast = ({data, weatherData, convertEpochTimeToReadable, getWeath
               <span className='time-4-1'>{convertEpochTimeToReadable(data.forecast.list[3].dt).hour}</span>
               <span className='time-4-2'>{convertEpochTimeToReadable(data.forecast.list[3].dt).period}</span>
             </div>
-            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(weatherData.weather[0].icon)})`}}/>
+            <div className='image-0' style={{backgroundImage: `url(${getWeatherIcon(data.weatherData.weather[0].icon)})`}}/>
             <div className='image-1' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].icon)})`}}/>
             <div className='image-2' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
             <div className='image-3' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].icon)})`}}/>

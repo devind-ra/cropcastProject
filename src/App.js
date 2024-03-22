@@ -39,6 +39,10 @@ import ExtraInfo from "./components/ExtraInfo.js";
 import FarmAdvice from './components/FarmAdvice.js';
 import HourlyForecast from './components/HourlyForecast.js';
 import RainHumidity from './components/RainHumidity.js';
+import Air from './components/Air.js';
+import SevenDay from './components/SevenDay.js';
+import SevereAlert from './components/SevereAlert.js';
+import Historical from './components/historical.js';
 
 function changeBackground(weather) {
   const container = document.querySelector('.main-container'); // Select the main container
@@ -249,212 +253,37 @@ const Weather = () => {
         initialSearch={initialSearch}
         fetchData={fetchData}
       />
-      {console.log("weatherData after form", weatherData)}
       {console.log("data after form", data)}
       { data && weatherData ? (
           <>
           {/* First page */}
 
-          <City data={data} weatherData={weatherData}/>
+          <City data={data} />
 
-          <MainDescription data={data} weatherData={weatherData} capitalise={capitalise} getWeatherIcon={getWeatherIcon} changeBackground={changeBackground}/>
+          <MainDescription data={data} changeBackground={changeBackground}/>
           <MainIcon />
-          <ExtraInfo data={data} weatherData={weatherData}/>
+          <ExtraInfo data={data}/>
           <br></br>
-          <FarmAdvice data={data} weatherData={weatherData} analyzeWeatherData={analyzeWeatherData}/>
+          <FarmAdvice data={data} />
           <br></br>
-          <HourlyForecast data={data} weatherData={weatherData} convertEpochTimeToReadable={convertEpochTimeToReadable} getWeatherIcon={getWeatherIcon} kelvinToCelsius={kelvinToCelsius}/>
+          <HourlyForecast data={data} />
           <br></br>
-          <RainHumidity data={data} weatherData={weatherData}/>
+          <RainHumidity data={data}/>
       {/* End of First page */}
       
       {/* Start of Second page */}
           <br></br>    
-
-          <div className='flex-row-windairquality'>
-
-            <div className='rectangle-wind' />
-              <div className='header-left'>
-                <div className='icon-wind' />
-                <span className='wind'>Wind</span>
-              </div>
-              <span className='number-12'>{mpstomph(data.weatherData.wind.speed)}</span>
-              <span className='number-24'>{mpstomph(data.forecast.list[0].wind.gust)}</span>
-              <span className='mph'>mph</span>
-              <span className='mph-5'>mph</span>
-              <span className='wind-6'>Wind</span>
-              <span className='gusts'>Gusts</span>
-              <br/>
-              <span className='direction'>Wind Direction: <br/> {convert.toCompass(data.weatherData.wind.deg)}</span>
-              {/* <span className='nw'>Wind Degrees: <br/> {data.weatherData.wind.deg}°</span> */}
-
-            <div className='rectangle-airquality' />
-              <div className='header-right'>
-                  <div className='icon-airquality' />
-                  <span className='air-quality'>Air quality</span>
-              </div>
-              <span className='percentage'>AQI: {data.pollution.list[0].main.aqi}</span>
-              <span className='visibility'>Pressure: <br></br> {data.weatherData.main.pressure} hPa </span>
-
-          </div>
+          <Air data={data} />
 
           <br></br>
 
-          <div className='flex-row-7day'>
-
-            <div className='header-7day'>
-              <div className='icon-forecast' />
-              <span className='day-forecast'>7-DAY FORECAST</span>
-            </div>
-            <span className='low'>Low</span>
-            <span className='high'>High</span>
-            
-            <div className='day-0'>
-              <div className='flex-row-0'>
-                <span className='today'>Today</span>
-                <span className='temp-high-0'>{kelvinToCelsius(data.dayForecast.list[0].temp.max)}°</span>
-                <div className='imagee' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].icon)})`}}/>
-                <span className='temp-low-0'>{kelvinToCelsius(data.dayForecast.list[0].temp.min )}°</span>
-              </div>
-              {/* <div className='line-0' /> */}
-            </div>
-
-            {/* <div className='union' /> */}
-
-            <div className='day-1'>
-              <div className='frame' />
-              <div className='flex-row-1'>
-               <div className='image-Ca' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[1].weather[0].icon)})`}}/>
-                <div className='groupp'>
-                  <div className='flex-row-cbd'>
-                    <span className='day-mon'>{epochToDay(data.dayForecast.list[1].dt)}</span>
-                    <span className='temp-high-1'>{kelvinToCelsius(data.dayForecast.list[1].temp.max)}°</span>
-                    <span className='temp-low-1'>{kelvinToCelsius(data.dayForecast.list[1].temp.min)}°</span>
-                    <div className='frame-d' />
-                  </div>
-                  {/* <div className='line-1' /> */}
-                </div>
-              </div>
-            </div>
-
-            <div className='day-2'>
-              <div className='flex-row-2'>
-                <div className='image-10' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
-                <span className='day-tue'>{epochToDay(data.dayForecast.list[2].dt)}</span>
-                <span className='temp-high-2'>{kelvinToCelsius(data.dayForecast.list[2].temp.max)}°</span>
-                <span className='temp-low-2'>{kelvinToCelsius(data.dayForecast.list[2].temp.min)}°</span>
-              </div>
-              {/* <div className='line-2' /> */}
-            </div>
-
-            <div className='day-3'>
-              <div className='frame-15' />
-              <div className='flex-row-3'>
-                <span className='day-wed'>{epochToDay(data.dayForecast.list[3].dt)}</span>
-                <span className='temp-high-3'>{kelvinToCelsius(data.dayForecast.list[3].temp.max)}°</span>
-                <div className='sunny-color' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[3].weather[0].icon)})`}}/>
-                <span className='temp-low-3'>{kelvinToCelsius(data.dayForecast.list[3].temp.min)}°</span>
-                <div className='frame-19' />
-              </div>
-              {/* <div className='line-3' /> */}
-            </div>
-
-            <div className='day-4'>
-              <div className='frame-1c' />
-              <div className='flex-row-4'>
-                <span className='span-thu'>{epochToDay(data.dayForecast.list[4].dt)}</span>
-                <span className='temp-high-4'>{kelvinToCelsius(data.dayForecast.list[4].temp.max)}°</span>
-                <div className='image-1e' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[4].weather[0].icon)})`}}/>
-                <span className='temp-low-4'>{kelvinToCelsius(data.dayForecast.list[4].temp.min)}°</span>
-                <div className='frame-1f' />
-              </div>
-              {/* <div className='line-4' /> */}
-            </div>
-
-            <div className='day-5'>
-              <div className='flex-row-5'>
-                <span className='span-fri'>{epochToDay(data.dayForecast.list[5].dt)}</span>
-                <span className='temp-high-5'>{kelvinToCelsius(data.dayForecast.list[5].temp.max)}°</span>
-                <div className='image-23' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[5].weather[0].icon)})`}}/>
-                <span className='temp-low-5'>{kelvinToCelsius(data.dayForecast.list[5].temp.min)}°</span>
-                <div className='frame-24' />
-              </div>
-              {/* <div className='line-5' /> */}
-            </div>
-
-            <div className='day-6'>
-              <div className='flex-row-6'>
-                <span className='span-sat'>{epochToDay(data.dayForecast.list[6].dt)}</span>
-                <span className='temp-high-6'>{kelvinToCelsius(data.dayForecast.list[6].temp.max)}°</span>
-                <div className='image-29' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[6].weather[0].icon)})`}}/>
-                <span className='temp-low-6'>{kelvinToCelsius(data.dayForecast.list[6].temp.min)}°</span>
-              </div>
-              {/* <div className='line-6' /> */}
-            </div>
-
-            <div className='day-7'>
-              <div className='frame-2d' />
-              <div className='flex-row-7'>
-                <span className='sun'>{epochToDay(data.dayForecast.list[7].dt)}</span>
-                <span className='temp-high-7'>{kelvinToCelsius(data.dayForecast.list[7].temp.max)}°</span>
-                <div className='image-30' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[7].weather[0].icon)})`}}/>
-                <span className='temp-low-7'>{kelvinToCelsius(data.dayForecast.list[7].temp.min)}°</span>
-                <div className='frame-32' />
-              </div>
-              {/* <div className='line-7' /> */}
-            </div>
-          </div>
+          <SevenDay data={data}  />
 
           <br></br>
-
-          <div className='flex-row-severeweather'>
-            <div className='header-severeweather'>
-              <span className='severe-weather'>severe weather </span>
-            </div>
-            <span className='severe-alert'>
-              {extremeWeather(data.weatherData.temp, data.weatherData.precipitation)}
-            </span>
-            <div className='rectangle-35' />
-          </div>
+            <SevereAlert data={data} />
           <br/>
           {/* Historical Data */}
-          <div className='flex-row-historical'>
-          <div className='historical-data'>LAST FIVE DAYS</div>
-            <div className='historical-data-box' />
-            <div className='pm-6-text'>
-              <span className='time-6'>{convertToDate(data.historical[Object.keys(data.historical)[0]][0].dt)}</span>
-            </div>
-            <div className='pm-7-text'>
-              <span className='time-7'>{convertToDate(data.historical[Object.keys(data.historical)[1]][0].dt)}</span>
-            </div>
-            <div className='pm-8-text'>
-              <span className='time-8'>{convertToDate(data.historical[Object.keys(data.historical)[2]][0].dt)}</span>
-            </div>
-            <div className='pm-9-text'>
-              <span className='time-9'>{convertToDate(data.historical[Object.keys(data.historical)[3]][0].dt)}</span>
-            </div>
-            <div className='pm-10-text'>
-              <span className='time-10'>{convertToDate(data.historical[Object.keys(data.historical)[4]][0].dt)}</span>
-            </div>
-
-            <span className='pm-6-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 0)))}°</span>
-            <span className='pm-7-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 1)))}°</span>
-            <span className='pm-8-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 2)))}°</span>
-            <span className='pm-9-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 3)))}°</span>
-            <span className='pm-10-temp'>{kelvinToCelsius(calcAvgData(getTemps(data.historical, 4)))}°</span>
-      
-            <span className='pm-6-rain'>{calcAvgData(getRains(data.historical, 0))}mm</span>
-            <span className='pm-7-rain'>{calcAvgData(getRains(data.historical, 1))}mm</span>
-            <span className='pm-8-rain'>{calcAvgData(getRains(data.historical, 2))}mm</span>
-            <span className='pm-9-rain'>{calcAvgData(getRains(data.historical, 3))}mm</span>
-            <span className='pm-10-rain'>{calcAvgData(getRains(data.historical, 4))}mm</span>
-            
-            <span className='pm-6-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 0)))}mph</span>
-            <span className='pm-7-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 1)))}mph</span>
-            <span className='pm-8-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 2)))}mph</span>
-            <span className='pm-9-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 3)))}mph</span>
-            <span className='pm-10-wind'>{mpstomph(calcAvgData(getWinds(data.historical, 4)))}mph</span>
-          </div>
+            <Historical data={data}  />
           {/* End of second page */}
           </>
             ): null}

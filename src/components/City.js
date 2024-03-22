@@ -1,6 +1,6 @@
 import React from "react";
 
-const City = ({data, weatherData}) => {
+const City = ({data}) => {
     return (
         <div className='flex-row-city'>
             {console.log("name", data.weatherData.name)}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ExtraInfo = ({data, weatherData}) => {
+const ExtraInfo = ({data}) => {
     return (
         <div className='flex-row-mainweatherextra'>
             <div className='minmaxTemp'>

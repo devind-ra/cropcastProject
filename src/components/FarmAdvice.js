@@ -1,6 +1,7 @@
 import React from "react";
+import { analyzeWeatherData } from "../adviceandalerts";
 
-const FarmAdvice = ({data, weatherData, analyzeWeatherData}) => {
+const FarmAdvice = ({data}) => {
     return (
         <div className='flex-row-farmadvice'>
             <div className='rectangle'>
