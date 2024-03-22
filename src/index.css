@@ -309,6 +309,11 @@ button {
   background-color:#7e61ff;
   transition: 0.5s;
 }
+
+.searchbar.functional-screen input::placeholder{
+  color: white;
+  font-size: large;
+}
   
 
 
