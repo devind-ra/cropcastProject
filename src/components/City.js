@@ -1,6 +1,6 @@
 import React from "react";
-
-const City = ({data, weatherData}) => {
+//Component used to represent the city name on the application underneath the search bar
+const City = ({data, weatherData}) => { //Parses in data that is outputted after user input is taken in 
     return (
         <div className='flex-row-city'>
             {console.log("name", data.weatherData.name)}

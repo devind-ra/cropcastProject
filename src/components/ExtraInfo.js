@@ -1,13 +1,15 @@
 import React from "react";
-
-const ExtraInfo = ({data, weatherData}) => {
+//Component used to represent the information such as high and low temps along with sunrise and sunset
+const ExtraInfo = ({data, weatherData}) => { //Passes in information to be outputted within div tags 
     return (
-        <div className='flex-row-mainweatherextra'>
-            <div className='minmaxTemp'>
+        <div className='flex-row-mainweatherextra'> 
+        {/* Flex row placed below the main information */}
+            <div className='minmaxTemp'> {/* Placing minimum and maximum temps */}
               <span className='temperature-high'>H: {Math.round(data.weatherData.main.temp_max)}°</span>
-              <span className='temperature-low'>L: {Math.round(data.weatherData.main.temp_min)}°</span>
+              <span className='temperature-low'>L: {Math.round(data.weatherData.main.temp_min)}°</span> 
             </div>
-            <span className='time-span'>{data.weatherData.sys.sunrise &&(
+            {/* Outputs the sunrise info in a readable format */}
+            <span className='time-span'>{data.weatherData.sys.sunrise &&( 
                         <p> 
                             {(() => {
                                 let sunriseTimeStamp = data.weatherData.sys.sunrise;
@@ -23,7 +25,8 @@ const ExtraInfo = ({data, weatherData}) => {
                             })()}
                         </p>
                     )}</span>
-              <span className='time-span-2'>{data.weatherData.sys.sunset &&(
+                {/* Outputs the sunset info in a readable format */}
+            <span className='time-span-2'>{data.weatherData.sys.sunset &&(
                         <p>
                             {(() => {
                                 let sunsetTimeStamp = data.weatherData.sys.sunset;
