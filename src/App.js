@@ -108,6 +108,20 @@ const Weather = () => {
   const [data, setData] = useState({ forecast: null, weatherData: null , pollution: null, dayForecast: null,weekRain: null});
   // console.log("data", data);
 
+  var convert = {
+    toCompass: function(degrees)
+    {
+        return ['North', 'North-NorthEast', 'NorthEast', 'East-NorthEast', 'East', 'East-SouthEast', 'SouthEast', 'South-SouthEast', 'South', 'South-SouthWest', 'SouthWest', 'West-SouthWest', 'West', 'West-NorthWest', 'NorthWest', 'North-NorthWest', 'North'][Math.round(degrees / 11.25 / 2)];
+    }
+  }
+
+  function capitalise(words){
+    let wordsplits = words.split(" ");
+    for (let i = 0; i < wordsplits.length; i++){
+      wordsplits[i] = wordsplits[i].charAt(0).toUpperCase() + wordsplits[i].slice(1);
+    }
+    return wordsplits.join(" "); 
+  }
 
   const fetchData = async () => {
     if (city !== "") {
@@ -149,6 +163,7 @@ const Weather = () => {
         const weekRain = calculateTotalRainfall(dayForecasts.data.list);   
         console.log("weekRain", weekRain);     
         // Update state
+        setWeatherData(response.data);
         setData(prevState => ({
           ...prevState,
           weatherData: response.data,
@@ -158,6 +173,7 @@ const Weather = () => {
           historical: historicalDataByDay,
           weekRain: weekRain
         }));
+        setWeatherData(response.data)
         setinitialSearch(true);
         console.log(response.data);
       } catch (error) {
@@ -238,7 +254,7 @@ const Weather = () => {
         fetchData={fetchData}
       />
       {console.log("data after form", data)}
-      { data ? (
+      { data && weatherData ? (
           <>
           {/* First page */}
 
