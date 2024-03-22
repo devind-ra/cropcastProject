@@ -1,3 +1,4 @@
+// All utilised for the historical portion of the application
 export function groupDataByDay (data) {
     const groupedData = {};
   
