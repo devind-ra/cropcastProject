@@ -1,7 +1,7 @@
 import React from "react";
 import { getWeatherIcon,capitalise} from "../weatherdataConversions";
-
-const MainDescription = ({data, changeBackground}) => {
+import { changeBackground } from "../changeBackground";
+const MainDescription = ({data}) => {
     return (
         <div className='flex-row-maindescription'>
             <span className='mainweather-description'>{capitalise(data.weatherData.weather[0].description)}</span>
