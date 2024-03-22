@@ -1,12 +1,14 @@
 import React from "react";
-
+// Component used to represent the data underneath the main information about a city such as high and low temperatures along with sunrise and sunset times
 const ExtraInfo = ({data}) => {
     return (
         <div className='flex-row-mainweatherextra'>
             <div className='minmaxTemp'>
+                {/* Information that is related to the maximum and minimum for the city for the day */}
               <span className='temperature-high'>H: {Math.round(data.weatherData.main.temp_max)}°</span>
               <span className='temperature-low'>L: {Math.round(data.weatherData.main.temp_min)}°</span>
             </div>
+            {/* Information formatted and outputted giving the sunrise time based on GMT */}
             <span className='time-span'>{data.weatherData.sys.sunrise &&(
                         <p> 
                             {(() => {
@@ -23,6 +25,7 @@ const ExtraInfo = ({data}) => {
                             })()}
                         </p>
                     )}</span>
+                {/* Information given related to the sunset time which has been formatted and outputted correctly based on GMT */}
               <span className='time-span-2'>{data.weatherData.sys.sunset &&(
                         <p>
                             {(() => {

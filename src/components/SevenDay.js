@@ -1,18 +1,21 @@
 import React from "react";
 import { kelvinToCelsius, epochToDay, getWeatherIcon } from '../weatherdataConversions';
 
-
+// Component used to represent the information needed for the 7 day forecast box of the application 
 const SevenDay = ({data}) => {
     return (
         <div className='flex-row-7day'>
-
+            {/* Stores all the information in one flex row */}
             <div className='header-7day'>
             <div className='icon-forecast' />
+            {/* Header for the box */}
             <span className='day-forecast'>7-DAY FORECAST</span>
             </div>
+            {/* Two sub headings for the information provided */}
             <span className='low'>Low</span>
             <span className='high'>High</span>
             
+            {/* Current day's forecast with associated icon and temperatures */}
             <div className='day-0'>
             <div className='flex-row-0'>
                 <span className='today'>Today</span>
@@ -20,11 +23,10 @@ const SevenDay = ({data}) => {
                 <div className='imagee' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[0].weather[0].icon)})`}}/>
                 <span className='temp-low-0'>{kelvinToCelsius(data.dayForecast.list[0].temp.min )}°</span>
             </div>
-            {/* <div className='line-0' /> */}
             </div>
             
             {/* <div className='union' /> */}
-            
+            {/* First day after today's forecast with associated icon and temperatures */}
             <div className='day-1'>
             <div className='frame' />
             <div className='flex-row-1'>
@@ -36,11 +38,10 @@ const SevenDay = ({data}) => {
                     <span className='temp-low-1'>{kelvinToCelsius(data.dayForecast.list[1].temp.min)}°</span>
                     <div className='frame-d' />
                 </div>
-                {/* <div className='line-1' /> */}
                 </div>
             </div>
             </div>
-            
+            {/* Second day after today's forecast with associated icon and temperatures */}
             <div className='day-2'>
             <div className='flex-row-2'>
                 <div className='image-10' style={{backgroundImage: `url(${getWeatherIcon(data.forecast.list[2].weather[0].icon)})`}}/>
@@ -48,9 +49,8 @@ const SevenDay = ({data}) => {
                 <span className='temp-high-2'>{kelvinToCelsius(data.dayForecast.list[2].temp.max)}°</span>
                 <span className='temp-low-2'>{kelvinToCelsius(data.dayForecast.list[2].temp.min)}°</span>
             </div>
-            {/* <div className='line-2' /> */}
             </div>
-            
+            {/* Third day after today's forecast with associated icon and temperatures */}
             <div className='day-3'>
             <div className='frame-15' />
             <div className='flex-row-3'>
@@ -60,9 +60,8 @@ const SevenDay = ({data}) => {
                 <span className='temp-low-3'>{kelvinToCelsius(data.dayForecast.list[3].temp.min)}°</span>
                 <div className='frame-19' />
             </div>
-            {/* <div className='line-3' /> */}
             </div>
-            
+            {/* Fourth day after today's forecast with associated icon and temperatures */}
             <div className='day-4'>
             <div className='frame-1c' />
             <div className='flex-row-4'>
@@ -72,9 +71,8 @@ const SevenDay = ({data}) => {
                 <span className='temp-low-4'>{kelvinToCelsius(data.dayForecast.list[4].temp.min)}°</span>
                 <div className='frame-1f' />
             </div>
-            {/* <div className='line-4' /> */}
             </div>
-            
+            {/* Fifth day after today's forecast with associated icon and temperatures */}
             <div className='day-5'>
             <div className='flex-row-5'>
                 <span className='span-fri'>{epochToDay(data.dayForecast.list[5].dt)}</span>
@@ -83,9 +81,8 @@ const SevenDay = ({data}) => {
                 <span className='temp-low-5'>{kelvinToCelsius(data.dayForecast.list[5].temp.min)}°</span>
                 <div className='frame-24' />
             </div>
-            {/* <div className='line-5' /> */}
             </div>
-            
+            {/* Sixth day after today's forecast with associated icon and temperatures */}
             <div className='day-6'>
             <div className='flex-row-6'>
                 <span className='span-sat'>{epochToDay(data.dayForecast.list[6].dt)}</span>
@@ -95,7 +92,7 @@ const SevenDay = ({data}) => {
             </div>
             {/* <div className='line-6' /> */}
             </div>
-            
+            {/* Seventh day after today's forecast with associated icon and temperatures */}
             <div className='day-7'>
             <div className='frame-2d' />
             <div className='flex-row-7'>

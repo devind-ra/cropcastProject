@@ -1,5 +1,5 @@
 import React from "react";
-
+// Component represents the name of the city to be displayed at the top of the application 
 const City = ({data}) => {
     return (
         <div className='flex-row-city'>

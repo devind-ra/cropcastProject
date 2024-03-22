@@ -123,6 +123,7 @@ button {
   font-size: large;
 }
 
+/* Inspiration from https://codepen.io/jarnovanrhijn/pen/obPLOY */
 .searchbar.initial-screen input[type="text"]{
   border:none;
   z-index: 1;

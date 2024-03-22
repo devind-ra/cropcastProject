@@ -1,5 +1,5 @@
 import React from "react";
-
+//Component used to represent the information at the beginning when the application is opened 
 const InitialScreen = () => {
     return (
         <div className={`initial-screen`}>

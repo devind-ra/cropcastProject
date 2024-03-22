@@ -18,6 +18,7 @@ export function groupDataByDay (data) {
 }
   
 export  function convertToDate (unixTimeStamp) {
+  // Converts UNIX time format to human readable timestamp 
     const milliseconds = unixTimeStamp * 1000;
     const date = new Date(milliseconds);
     const day = String(date.getDate()).padStart(2, '0');
@@ -27,6 +28,7 @@ export  function convertToDate (unixTimeStamp) {
 }
   
 export function getTemps (apiResponse, date) {
+  //Acquires temperatures from historical data 
     const temps = [];
     const tempEntries = apiResponse[Object.keys(apiResponse)[date]];
     if (tempEntries && tempEntries.length > 0) {
@@ -39,6 +41,7 @@ export function getTemps (apiResponse, date) {
 }
   
 export function getRains(apiResponse, date) {
+  // Acquires rainfall from historical data 
     const rains = [];
     const rainEntries = apiResponse[Object.keys(apiResponse)[date]];
     if (rainEntries && rainEntries.length > 0) {
@@ -52,6 +55,7 @@ export function getRains(apiResponse, date) {
 }
   
 export function getWinds (apiResponse, date) {
+  // Acquires wind information from historical data 
     const winds = [];
     const windEntries = apiResponse[Object.keys(apiResponse)[date]];
     if (windEntries && windEntries.length > 0) {
@@ -64,6 +68,7 @@ export function getWinds (apiResponse, date) {
 }
   
 export function calcAvgData (data) {
+  // Calculates average for the data passed in 
     if (data.length > 0) {
       const dataSum = data.reduce((sum, data) => sum + data, 0);
       const avgData = dataSum / data.length;
