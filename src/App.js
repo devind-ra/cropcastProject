@@ -21,7 +21,7 @@ import {
 
 // Weather component
 const Weather = () => {
-  const [API] = useState("51326c1d8dd29acfc399a1c78b2b21b7"); // API key
+  // const [API] = useState(process.env.REACT_APP_API_KEY); // API key
   const [loading, setloading] = useState(false); // Loading state
   const [initialSearch, setinitialSearch] = useState(false); // Initial search state
   const [city, setCity] = useState(""); // City state
@@ -34,22 +34,22 @@ const Weather = () => {
       try {
         // Fetch current weather data
         const response = await axios.get(
-          `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API}`
+          `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
         );
 
         // Fetch hourly forecasts
         const forecasts = await axios.get(
-          `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+          `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${process.env.REACT_APP_API_KEY}`
         );
 
         // Fetch air pollution data
         const pollutions = await axios.get(
-          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${API}`
+          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${process.env.REACT_APP_API_KEY}`
         );
 
         // Fetch daily forecasts
         const dayForecasts = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&cnt=8&lon=${response.data.coord.lon}&appid=${API}`
+          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${response.data.coord.lat}&cnt=8&lon=${response.data.coord.lon}&appid=${process.env.REACT_APP_API_KEY}`
         );
 
         // Calculate historical data range
@@ -63,7 +63,7 @@ const Weather = () => {
 
         // Fetch historical data
         const historicals = await axios.get(
-          `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&type=day&start=${fiveDaysAgo}&end=${yesterdayUnix}&appid=${API}`
+          `https://history.openweathermap.org/data/2.5/history/city?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&type=day&start=${fiveDaysAgo}&end=${yesterdayUnix}&appid=${process.env.REACT_APP_API_KEY}`
         );
 
         // Group historical data by day
